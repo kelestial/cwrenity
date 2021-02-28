@@ -1,4 +1,4 @@
-# cwrenity game framework
+# cwrenity library
 
 <p align="center">
 <img src="resources/banner.png" alt="cwrenity logo" width="60%" height="60%">
