@@ -8,9 +8,13 @@ set (LIB_SRC
 	"src/application.c"
 	"src/win32_surface.c")
 
+set (VENDOR_SRC "vendor/glad/src/glad.c")
+
 project (cwrenity)
-add_library (cwrenity SHARED ${LIB_SRC})
-target_include_directories (cwrenity PUBLIC "include/")
+add_library (cwrenity SHARED ${LIB_SRC} ${VENDOR_SRC})
+
+target_include_directories (cwrenity PUBLIC "include" "vendor/glad/include" "vendor/glfw/include")
+target_link_libraries (cwrenity PUBLIC glfw)
 
 if (WIN32)
 	target_compile_definitions (cwrenity PUBLIC CWREN_PLATFORM_WIN CWREN_BUILD_SHARED)
@@ -18,4 +22,5 @@ elseif (UNIX)
 	target_compile_definitions (cwrenity PUBLIC CWREN_PLATFORM_UNIX CWREN_BUILD_SHARED)
 endif ()
 
+add_subdirectory ("vendor/glfw")
 add_subdirectory ("example")
