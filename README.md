@@ -5,4 +5,4 @@
 </p>
 
 # c game framework
-Written in pure C11, Cwrenity is a lightweight, data-oriented game framework
+Written in pure C11, Cwrenity is a lightweight, data-oriented game framework. No dependencies!
