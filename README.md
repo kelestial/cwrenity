@@ -1,5 +1,5 @@
 <p align="center">
-<img src="resources/banner.png" alt="cwrenity logo" width="50%" height="50%">
+<img src="resources/banner.png" alt="cwrenity logo" width="60%" height="60%">
 </p>
 
 # cwrenity?
