@@ -1,7 +1,7 @@
 # cwrenity
 
 <p align="center">
-<img src="resources/banner.png" alt="cwrenity logo" width="80%" height="80%">
+<img src="branding/banner.png" alt="cwrenity logo" width="80%" height="80%">
 </p>
 
 # c game framework
