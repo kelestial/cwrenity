@@ -30,7 +30,7 @@ LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 	//TODO: handle win32 api class callbacks
 }
 
-void win32_create_surface()
+void win32_create_window()
 {
 	WNDCLASS w32_class = {0};
 	w32_class.style = CS_OWNDC|CS_HREDRAW|CS_VREDRAW;
@@ -41,12 +41,22 @@ void win32_create_surface()
 
 	if (!RegisterClass(&w32_class))
 	{
-		//TODO: throw error
+		cw_log_message("(win32) class registration failed!", FATAL);
 	}
 
 	HWND w32_handle = CreateWindowEx(0, w32_class.lpszClassName, "cwrenity (win32 api)", 
 		WS_OVERLAPPEDWINDOW|WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, 0, 0, 
 		w32_class.hInstance, 0);
+
+	if (!w32_handle)
+	{
+		cw_log_message("(win32) failed to create valid window handle!", FATAL);
+	}
+}
+
+void win32_update_window()
+{
+	//TODO: update w32 window
 }
 
 #endif

@@ -21,6 +21,7 @@
 #ifndef WIN32_SURFACE_H
 #define WIN32_SURFACE_H
 
-CWREN_INT void win32_create_surface();
+CWREN_INT void win32_create_window();
+CWREN_INT void win32_update_window();
 
 #endif
