@@ -5,4 +5,4 @@
 </p>
 
 # c game framework
-lightweight, data-oriented game framework written in pure C
+Cwrenity is a lightweight, data-oriented game framework written in pure C
