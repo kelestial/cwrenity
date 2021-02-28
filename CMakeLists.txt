@@ -5,7 +5,8 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set (CMAKE_C_STANDARD 11)
 
 set (LIB_SRC 
-	"src/application.c")
+	"src/application.c"
+	"src/win32_surface.c")
 
 project (cwrenity)
 add_library (cwrenity SHARED ${LIB_SRC})

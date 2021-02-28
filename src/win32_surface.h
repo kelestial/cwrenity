@@ -18,25 +18,9 @@
 * or any of its contents.
 */
 
-#include <cwrenity.h>
+#ifndef WIN32_SURFACE_H
+#define WIN32_SURFACE_H
 
-static bool app_context_alive = false;
+CWREN_INT void win32_create_surface();
 
-static void core_application_cycle()
-{
-	while (app_context_alive)
-	{
-		continue;
-	}
-}
-
-void cw_construct_app(app_info_t info)
-{
-	app_context_alive = true;
-	core_application_cycle();
-}
-
-void cw_destroy_app()
-{
-	app_context_alive = false;
-}
+#endif
