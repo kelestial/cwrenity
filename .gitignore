@@ -1,52 +1,38 @@
-# Prerequisites
-*.d
+# editor specific directories
+/.vscode
+/.vs
+/.idea
 
-# Object files
+# output directories
+/cmake-build-debug
+/cmake-build-release
+/out
+
+# object binaries
 *.o
-*.ko
 *.obj
-*.elf
 
-# Linker output
+# linker output
 *.ilk
 *.map
 *.exp
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
+# static libraries
 *.lib
 *.a
-*.la
-*.lo
 
-# Shared objects (inc. Windows DLLs)
+# shared libraries
 *.dll
 *.so
 *.so.*
 *.dylib
 
-# Executables
+# executable binaries
 *.exe
 *.out
 *.app
-*.i*86
-*.x86_64
-*.hex
 
-# Debug files
-*.dSYM/
+# debugging files
 *.su
 *.idb
 *.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
