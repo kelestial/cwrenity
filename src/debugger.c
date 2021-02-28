@@ -19,30 +19,11 @@
 */
 
 #include <cwrenity.h>
+#include <stdio.h>
 
-static bool app_context_alive = false;
+static const char *logstr_array[4] = {"NOTE", "WARNING", "ERROR", "FATAL"};
 
-static void terminate_application()
+void cw_log_message(const char *message, logtype_t type)
 {
-	//TODO: terminate app;
-}
-
-static void core_application_cycle()
-{
-	while (app_context_alive)
-	{
-		continue;
-	}
-}
-
-void cw_construct_app(app_info_t info)
-{
-	app_context_alive = true;
-	core_application_cycle();
-	terminate_application();
-}
-
-void cw_destroy_app()
-{
-	app_context_alive = false;
+	printf("%s: %s\n", logstr_array[type], message);
 }

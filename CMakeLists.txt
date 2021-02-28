@@ -6,6 +6,7 @@ set (CMAKE_C_STANDARD 11)
 
 set (LIB_SRC 
 	"src/application.c"
+	"src/debugger.c"
 	"src/win32_surface.c")
 
 set (VENDOR_SRC "vendor/glad/src/glad.c")

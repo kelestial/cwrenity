@@ -39,7 +39,10 @@ void win32_create_surface()
 	w32_class.lpszClassName = "cwrenw32class";
 	//W32_class.hIcon; -- for later
 
-	RegisterClass(&w32_class);
+	if (!RegisterClass(&w32_class))
+	{
+		//TODO: throw error
+	}
 
 	HWND w32_handle = CreateWindowEx(0, w32_class.lpszClassName, "cwrenity (win32 api)", 
 		WS_OVERLAPPEDWINDOW|WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, 0, 0, 

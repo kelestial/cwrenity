@@ -55,4 +55,17 @@ typedef struct app_info_t
 CWREN_API void cw_construct_app(app_info_t info);
 CWREN_API void cw_destroy_app();
 
+/*
+#############################################
+#			  	  DEBUGGER	     			#
+#############################################
+*/
+
+typedef enum logtype_t
+{
+	NOTE, WARNING, ERROR, FATAL
+} logtype_t;
+
+CWREN_API void cw_log_message(const char *message, logtype_t type);
+
 #endif
