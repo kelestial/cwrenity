@@ -19,13 +19,3 @@
 */
 
 #include <cwrenity.h>
-
-void cw_construct_app(app_info_t info)
-{
-
-}
-
-void cw_destroy_app()
-{
-
-}

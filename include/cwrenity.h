@@ -39,4 +39,20 @@
 
 typedef enum {false, true} bool;
 
+/*
+#############################################
+#				APPLICATION					#
+#############################################
+*/
+
+typedef struct app_info_t
+{
+	const char *title;
+	unsigned int width, height;
+	bool vsync;
+} app_info_t;
+
+CWREN_API void cw_construct_app(app_info_t info);
+CWREN_API void cw_destroy_app();
+
 #endif
