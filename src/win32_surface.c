@@ -18,7 +18,7 @@
 * or any of its contents.
 */
 
-#ifdef CWREN_PLATFORM_WIN
+#if defined(CWREN_PLATFORM_WIN)
 
 #include <cwrenity.h>
 #include <windows.h>
@@ -106,7 +106,7 @@ void win32_create_window(const char *title, unsigned int width, unsigned int hei
 
 	if (!width || !height)
 	{
-		cw_log_message("(win32) illegal size params. defaulting to (800x600).", ERR);
+		cw_log_message("(win32) illegal size params. defaulting to (800x600)", ERR);
 		width = 800;
 		height = 600;
 	}
