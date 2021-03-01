@@ -25,14 +25,6 @@
 
 static void (*app_callbacks[4])() = {NULL, NULL, NULL, NULL};
 
-void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (*terminate)())
-{
-	app_callbacks[0] = init;
-	app_callbacks[1] = update;
-	app_callbacks[2] = render;
-	app_callbacks[3] = terminate;
-}
-
 static void terminate_application()
 {
 	app_callbacks[3]();
@@ -48,6 +40,16 @@ static void core_application_cycle()
 		app_callbacks[1]();
 		native_update_window();
 	}
+
+	terminate_application();
+}
+
+void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (*terminate)())
+{
+	app_callbacks[0] = init;
+	app_callbacks[1] = update;
+	app_callbacks[2] = render;
+	app_callbacks[3] = terminate;
 }
 
 void cw_construct_app(app_info_t info)
@@ -57,7 +59,6 @@ void cw_construct_app(app_info_t info)
 	native_show_window(true);
 	
 	core_application_cycle();
-	terminate_application();
 }
 
 void cw_destroy_app()

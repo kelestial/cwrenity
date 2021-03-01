@@ -71,56 +71,6 @@ static LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPA
 	return 0;
 }
 
-/*
-#############################################
-#			WIN32 GRAPHICS API				#
-#############################################
-*/
-
-void native_create_gl_context()
-{
-	PIXELFORMATDESCRIPTOR w32_pfd =
-	{
-		sizeof(PIXELFORMATDESCRIPTOR),
-		1,
-		PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-		PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
-		24,                   // Colordepth of the framebuffer.
-		0, 0, 0, 0, 0, 0,
-		0,
-		0,
-		0,
-		0, 0, 0, 0,
-		32,                   // Number of bits for the depthbuffer
-		0,                    // Number of bits for the stencilbuffer
-		0,                    // Number of Aux buffers in the framebuffer.
-		PFD_MAIN_PLANE,
-		0,
-		0, 0, 0
-	};
-
-	w32_device_context = GetDC(w32_handle);
-
-	int w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
-	SetPixelFormat(w32_device_context, w32_pf, &w32_pfd);
-
-	w32_ogl_context = wglCreateContext(w32_device_context);
-	wglMakeCurrent(w32_device_context, w32_ogl_context);
-
-	gladLoadGL();
-	glViewport(0, 0, 800, 600);
-
-	char gl_str[30] = "OpenGL Version: ";
-	strcat(gl_str, glGetString(GL_VERSION));
-	cw_log_message(gl_str, NOTE);
-}
-
-void native_destroy_gl_context()
-{
-	ReleaseDC(w32_handle, w32_device_context);
-	wglDeleteContext(w32_ogl_context);
-}
-
 void native_create_window(const char *title, unsigned int width, unsigned int height)
 {
 	WNDCLASSEX w32_class = {0};
@@ -176,8 +126,6 @@ void native_update_window()
 		DispatchMessage(&msg);
 	}
 
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1, 0, 1, 1.0f);
 	SwapBuffers(w32_device_context);
 }
 
@@ -194,6 +142,56 @@ void native_destroy_window()
 bool native_is_window_alive()
 {
 	return win_active;
+}
+
+/*
+#############################################
+#			WIN32 GRAPHICS API				#
+#############################################
+*/
+
+void native_create_gl_context()
+{
+	PIXELFORMATDESCRIPTOR w32_pfd =
+	{
+		sizeof(PIXELFORMATDESCRIPTOR),
+		1,
+		PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
+		PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
+		24,                   // Colordepth of the framebuffer.
+		0, 0, 0, 0, 0, 0,
+		0,
+		0,
+		0,
+		0, 0, 0, 0,
+		32,                   // Number of bits for the depthbuffer
+		0,                    // Number of bits for the stencilbuffer
+		0,                    // Number of Aux buffers in the framebuffer.
+		PFD_MAIN_PLANE,
+		0,
+		0, 0, 0
+	};
+
+	w32_device_context = GetDC(w32_handle);
+
+	int w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
+	SetPixelFormat(w32_device_context, w32_pf, &w32_pfd);
+
+	w32_ogl_context = wglCreateContext(w32_device_context);
+	wglMakeCurrent(w32_device_context, w32_ogl_context);
+
+	gladLoadGL();
+	glViewport(0, 0, 800, 600);
+
+	char gl_str[30] = "OpenGL Version: ";
+	strcat(gl_str, glGetString(GL_VERSION));
+	cw_log_message(gl_str, NOTE);
+}
+
+void native_destroy_gl_context()
+{
+	ReleaseDC(w32_handle, w32_device_context);
+	wglDeleteContext(w32_ogl_context);
 }
 
 /*

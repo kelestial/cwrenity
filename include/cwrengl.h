@@ -33,6 +33,8 @@
 #	define CWRENGL_API
 #endif
 
-#define CGL_TRIANGLES GL_TRIANGLES
+#define CGL_COLOR_BUFFER_BIT 0x00004000
+
+CWRENGL_API void cgl_clear_buffer(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
 #endif
