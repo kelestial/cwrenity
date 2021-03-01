@@ -27,9 +27,9 @@ static const char *logstr_array[4] = {"NOTE", "WARNING", "ERROR", "FATAL"};
 
 void cw_log_message(const char *message, logtype_t type)
 {
-	win32_console_colour(type);
+	native_console_colour(type);
 	printf("%s: %s\n", logstr_array[type], message);
-	win32_console_colour(0);
+	native_console_colour(0);
 
 	if (type == FATAL)
 	{

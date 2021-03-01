@@ -21,7 +21,7 @@
 #include <cwrenity.h>
 #include <stddef.h>
 
-#include "win32_surface.h"
+#include "native_layer.h"
 
 static void (*app_callbacks[4])() = {NULL, NULL, NULL, NULL};
 
@@ -42,19 +42,19 @@ static void core_application_cycle()
 {
 	app_callbacks[0]();
 
-	while (win32_is_window_alive())
+	while (native_is_window_alive())
 	{
 		app_callbacks[2]();
 		app_callbacks[1]();
-		win32_update_window();
+		native_update_window();
 	}
 }
 
 void cw_construct_app(app_info_t info)
 {
-	win32_create_window(info.title, info.width, info.height);
-	win32_create_gl_context();
-	win32_show_window(true);
+	native_create_window(info.title, info.width, info.height);
+	native_create_gl_context();
+	native_show_window(true);
 	
 	core_application_cycle();
 	terminate_application();
@@ -62,6 +62,6 @@ void cw_construct_app(app_info_t info)
 
 void cw_destroy_app()
 {
-	win32_destroy_gl_context();
-	win32_destroy_window();
+	native_destroy_gl_context();
+	native_destroy_window();
 }

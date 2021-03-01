@@ -77,7 +77,7 @@ static LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPA
 #############################################
 */
 
-void win32_create_gl_context()
+void native_create_gl_context()
 {
 	PIXELFORMATDESCRIPTOR w32_pfd =
 	{
@@ -115,13 +115,13 @@ void win32_create_gl_context()
 	cw_log_message(gl_str, NOTE);
 }
 
-void win32_destroy_gl_context()
+void native_destroy_gl_context()
 {
 	ReleaseDC(w32_handle, w32_device_context);
 	wglDeleteContext(w32_ogl_context);
 }
 
-void win32_create_window(const char *title, unsigned int width, unsigned int height)
+void native_create_window(const char *title, unsigned int width, unsigned int height)
 {
 	WNDCLASSEX w32_class = {0};
 	w32_class.cbSize = sizeof(WNDCLASSEX);
@@ -152,7 +152,7 @@ void win32_create_window(const char *title, unsigned int width, unsigned int hei
 	}
 }
 
-void win32_show_window(bool win_show)
+void native_show_window(bool win_show)
 {
 	if (win_show)
 	{
@@ -166,7 +166,7 @@ void win32_show_window(bool win_show)
 
 }
 
-void win32_update_window()
+void native_update_window()
 {
 	MSG msg;
 
@@ -181,7 +181,7 @@ void win32_update_window()
 	SwapBuffers(w32_device_context);
 }
 
-void win32_destroy_window()
+void native_destroy_window()
 {
 	if (w32_handle)
 	{
@@ -191,7 +191,7 @@ void win32_destroy_window()
 	//TODO: destroy wgl context!
 }
 
-bool win32_is_window_alive()
+bool native_is_window_alive()
 {
 	return win_active;
 }
@@ -202,7 +202,7 @@ bool win32_is_window_alive()
 #############################################
 */
 
-void win32_console_colour(int colour)
+void native_console_colour(int colour)
 {
 	if (!buffer_active)
 	{

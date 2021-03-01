@@ -22,17 +22,17 @@
 #define _WIN32_SURFACE_H_
 
 //win32 graphics init
-CWREN_INT void win32_create_gl_context();
-CWREN_INT void win32_destroy_gl_context();
+CWREN_INT void native_create_gl_context();
+CWREN_INT void native_destroy_gl_context();
 
 //win32 window
-CWREN_INT void win32_create_window();
-CWREN_INT void win32_show_window(bool win_show);
-CWREN_INT void win32_update_window();
-CWREN_INT void win32_destroy_window();
-CWREN_INT bool win32_is_window_alive();
+CWREN_INT void native_create_window();
+CWREN_INT void native_show_window(bool win_show);
+CWREN_INT void native_update_window();
+CWREN_INT void native_destroy_window();
+CWREN_INT bool native_is_window_alive();
 
 //win32 console
-CWREN_INT void win32_console_colour(int colour);
+CWREN_INT void native_console_colour(int colour);
 
 #endif
