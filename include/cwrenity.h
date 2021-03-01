@@ -64,7 +64,7 @@ CWREN_API void cw_destroy_app();
 
 typedef enum logtype_t
 {
-	NOTE, WARNING, ERROR, FATAL
+	NOTE, WARNING, ERR, FATAL
 } logtype_t;
 
 CWREN_API void cw_log_message(const char *message, logtype_t type);

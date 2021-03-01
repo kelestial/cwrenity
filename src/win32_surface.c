@@ -67,13 +67,10 @@ void win32_create_window(const char *title, unsigned int width, unsigned int hei
 	w32_class.hInstance = GetModuleHandle(NULL);
 	w32_class.lpszClassName = "cwrenw32class";
 
-	if (!width)
+	if (!width || !height)
 	{
+		cw_log_message("(win32) illegal size params. defaulting to (800x600).", ERR);
 		width = 800;
-	}
-
-	if (!height)
-	{
 		height = 600;
 	}
 
