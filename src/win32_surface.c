@@ -149,6 +149,8 @@ void win32_destroy_window()
 	{
 		DestroyWindow(w32_handle);
 	}
+
+	//TODO: destroy wgl context!
 }
 
 bool win32_is_window_alive()
