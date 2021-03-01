@@ -18,21 +18,6 @@
 * or any of its contents.
 */
 
-#ifndef _WIN32_SURFACE_H_
-#define _WIN32_SURFACE_H_
-
-//win32 graphics init
-CWREN_INT void win32_create_gl_context();
-CWREN_INT void win32_destroy_gl_context();
-
-//win32 window
-CWREN_INT void win32_create_window();
-CWREN_INT void win32_show_window(bool win_show);
-CWREN_INT void win32_update_window();
-CWREN_INT void win32_destroy_window();
-CWREN_INT bool win32_is_window_alive();
-
-//win32 console
-CWREN_INT void win32_console_colour(int colour);
-
+#if defined (CWREN_PLATFORM_WIN)
+#include "win32_surface.h"
 #endif

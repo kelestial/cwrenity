@@ -53,11 +53,15 @@ static void core_application_cycle()
 void cw_construct_app(app_info_t info)
 {
 	win32_create_window(info.title, info.width, info.height);
+	win32_create_gl_context();
+	win32_show_window(true);
+	
 	core_application_cycle();
 	terminate_application();
 }
 
 void cw_destroy_app()
 {
+	win32_destroy_gl_context();
 	win32_destroy_window();
 }

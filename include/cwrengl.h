@@ -21,6 +21,8 @@
 #ifndef _CWRENGL_H_
 #define _CWRENGL_H_
 
+#include <glad/glad.h>
+
 #if defined(CWREN_PLATFORM_WIN) && defined(CWREN_BUILD_SHARED)
 #	define CWRENGL_API __declspec(dllexport)
 #elif defined (CWREN_PLATFORM_WIN)
@@ -30,5 +32,7 @@
 #else
 #	define CWRENGL_API
 #endif
+
+#define CGL_TRIANGLES GL_TRIANGLES
 
 #endif

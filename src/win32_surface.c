@@ -18,22 +18,31 @@
 * or any of its contents.
 */
 
-#if defined(CWREN_PLATFORM_WIN)
-
 #include <cwrenity.h>
 #include <windows.h>
 #include <string.h>
-#include <GL/GL.h>
+#include <glad/glad.h>
 
 #include "win32_surface.h"
 
+//window and device contexts
 static HWND w32_handle = NULL;
 static HDC w32_device_context = NULL;
 static HGLRC w32_ogl_context = NULL;
-static int w32_pf = 0;
 static bool win_active = false;
 
-LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
+//console information
+static HANDLE c_handle = NULL;
+static WORD def_attrib = 0;
+static bool buffer_active = false;
+
+/*
+#############################################
+#				WIN32 WINDOWING				#
+#############################################
+*/
+
+static LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
@@ -47,7 +56,6 @@ LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 		//EVENT: window destruction
 		case WM_DESTROY:
 		{
-			win32_destroy_window();
 			PostQuitMessage(0);
 			win_active = false;
 			break;
@@ -63,7 +71,13 @@ LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 	return 0;
 }
 
-static void win32_create_gl_context()
+/*
+#############################################
+#			WIN32 GRAPHICS API				#
+#############################################
+*/
+
+void win32_create_gl_context()
 {
 	PIXELFORMATDESCRIPTOR w32_pfd =
 	{
@@ -71,31 +85,40 @@ static void win32_create_gl_context()
 		1,
 		PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
 		PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
-		32,                   // Colordepth of the framebuffer.
+		24,                   // Colordepth of the framebuffer.
 		0, 0, 0, 0, 0, 0,
 		0,
 		0,
 		0,
 		0, 0, 0, 0,
-		24,                   // Number of bits for the depthbuffer
-		8,                    // Number of bits for the stencilbuffer
+		32,                   // Number of bits for the depthbuffer
+		0,                    // Number of bits for the stencilbuffer
 		0,                    // Number of Aux buffers in the framebuffer.
 		PFD_MAIN_PLANE,
 		0,
 		0, 0, 0
 	};
 
-		w32_device_context = GetDC(w32_handle);
+	w32_device_context = GetDC(w32_handle);
 
-		w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
-		SetPixelFormat(w32_device_context, w32_pf, &w32_pfd);
+	int w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
+	SetPixelFormat(w32_device_context, w32_pf, &w32_pfd);
 
-		w32_ogl_context = wglCreateContext(w32_device_context);
-		wglMakeCurrent(w32_device_context, w32_ogl_context);
+	w32_ogl_context = wglCreateContext(w32_device_context);
+	wglMakeCurrent(w32_device_context, w32_ogl_context);
 
-		char gl_str[30] = "OpenGL Version: ";
-		strcat(gl_str, glGetString(GL_VERSION));
-		cw_log_message(gl_str, NOTE);
+	gladLoadGL();
+	glViewport(0, 0, 800, 600);
+
+	char gl_str[30] = "OpenGL Version: ";
+	strcat(gl_str, glGetString(GL_VERSION));
+	cw_log_message(gl_str, NOTE);
+}
+
+void win32_destroy_gl_context()
+{
+	ReleaseDC(w32_handle, w32_device_context);
+	wglDeleteContext(w32_ogl_context);
 }
 
 void win32_create_window(const char *title, unsigned int width, unsigned int height)
@@ -127,22 +150,35 @@ void win32_create_window(const char *title, unsigned int width, unsigned int hei
 	{
 		cw_log_message("(win32) failed to create valid window handle!", FATAL);
 	}
+}
 
-	win32_create_gl_context();
-	ShowWindow(w32_handle, SW_SHOWNORMAL);
+void win32_show_window(bool win_show)
+{
+	if (win_show)
+	{
+		ShowWindow(w32_handle, SW_SHOWNORMAL);
+	}
+
+	else
+	{
+		ShowWindow(w32_handle, SW_HIDE);
+	}
+
 }
 
 void win32_update_window()
 {
 	MSG msg;
 
-	UpdateWindow(w32_handle);
-
 	while (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(1, 0, 1, 1.0f);
+	SwapBuffers(w32_device_context);
 }
 
 void win32_destroy_window()
@@ -160,4 +196,56 @@ bool win32_is_window_alive()
 	return win_active;
 }
 
-#endif
+/*
+#############################################
+#				WIN32 CONSOLE				#
+#############################################
+*/
+
+void win32_console_colour(int colour)
+{
+	if (!buffer_active)
+	{
+		c_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+		CONSOLE_SCREEN_BUFFER_INFO c_info;
+		GetConsoleScreenBufferInfo(c_handle, &c_info);
+		def_attrib = c_info.wAttributes;
+
+		buffer_active = true;
+	}
+
+	switch (colour)
+	{
+		case 0:
+		{
+			SetConsoleTextAttribute(c_handle, def_attrib);
+			break;
+		}
+
+		case 1:
+		{
+			SetConsoleTextAttribute(c_handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+			break;
+		}
+
+		case 2:
+		{
+			SetConsoleTextAttribute(c_handle, FOREGROUND_RED | FOREGROUND_INTENSITY);
+			break;
+		}
+
+		case 3:
+		{
+			SetConsoleTextAttribute(c_handle, FOREGROUND_RED | COMMON_LVB_UNDERSCORE | 
+				BACKGROUND_RED | BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_INTENSITY); 
+
+			break;
+		}
+
+		default: 
+		{
+			SetConsoleTextAttribute(c_handle, def_attrib); 
+			break;
+		}
+	}
+}
