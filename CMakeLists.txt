@@ -15,7 +15,7 @@ project (cwrenity)
 add_library (cwrenity SHARED ${LIB_SRC} ${VENDOR_SRC})
 
 target_include_directories (cwrenity PUBLIC "include" "vendor/glad/include" "vendor/glfw/include")
-target_link_libraries (cwrenity PUBLIC glfw)
+target_link_libraries (cwrenity PUBLIC opengl32 glu32)
 
 if (WIN32)
 	target_compile_definitions (cwrenity PUBLIC CWREN_PLATFORM_WIN CWREN_BUILD_SHARED)
