@@ -18,8 +18,8 @@
 * or any of its contents.
 */
 
-#ifndef CWRENITY_H
-#define CWRENITY_H
+#ifndef _CWRENITY_H_
+#define _CWRENITY_H_
 
 #if defined(CWREN_PLATFORM_WIN) && defined(CWREN_BUILD_SHARED)
 #	define CWREN_API __declspec(dllexport)
@@ -52,6 +52,7 @@ typedef struct app_info_t
 	bool vsync;
 } app_info_t;
 
+CWREN_API void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (*terminate)());
 CWREN_API void cw_construct_app(app_info_t info);
 CWREN_API void cw_destroy_app();
 

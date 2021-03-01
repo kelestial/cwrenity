@@ -25,38 +25,99 @@
 
 #include "win32_surface.h"
 
+static HWND w32_handle = NULL;
+static bool win_active = false;
+
 LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	//TODO: handle win32 api class callbacks
+	switch (msg)
+	{
+		//EVENT: window creation
+		case WM_CREATE:
+		{
+			win_active = true;
+			break;
+		}
+
+		//EVENT: window destruction
+		case WM_DESTROY:
+		{
+			win32_destroy_window();
+			PostQuitMessage(0);
+			win_active = false;
+			break;
+		}
+
+		//EVENT: send events back to windows
+		default:
+		{
+			return DefWindowProc(window, msg, wParam, lParam);
+		}
+	}
+
+	return 0;
 }
 
-void win32_create_window()
+void win32_create_window(const char *title, unsigned int width, unsigned int height)
 {
-	WNDCLASS w32_class = {0};
+	WNDCLASSEX w32_class = {0};
+	w32_class.cbSize = sizeof(WNDCLASSEX);
 	w32_class.style = CS_OWNDC|CS_HREDRAW|CS_VREDRAW;
 	w32_class.lpfnWndProc = win32_callback;
-	w32_class.hInstance = GetModuleHandle(0);
+	w32_class.hInstance = GetModuleHandle(NULL);
 	w32_class.lpszClassName = "cwrenw32class";
-	//W32_class.hIcon; -- for later
 
-	if (!RegisterClass(&w32_class))
+	if (!width)
+	{
+		width = 800;
+	}
+
+	if (!height)
+	{
+		height = 600;
+	}
+
+	if (!RegisterClassEx(&w32_class))
 	{
 		cw_log_message("(win32) class registration failed!", FATAL);
 	}
 
-	HWND w32_handle = CreateWindowEx(0, w32_class.lpszClassName, "cwrenity (win32 api)", 
-		WS_OVERLAPPEDWINDOW|WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, 0, 0, 
-		w32_class.hInstance, 0);
+	w32_handle = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, w32_class.lpszClassName, 
+		title, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height,
+		0, 0, w32_class.hInstance, 0);
 
 	if (!w32_handle)
 	{
 		cw_log_message("(win32) failed to create valid window handle!", FATAL);
 	}
+
+	ShowWindow(w32_handle, SW_SHOWNORMAL);
 }
 
 void win32_update_window()
 {
-	//TODO: update w32 window
+	MSG msg;
+
+	UpdateWindow(w32_handle);
+
+	while (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) > 0)
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+}
+
+void win32_destroy_window()
+{
+	if (w32_handle)
+	{
+		DestroyWindow(w32_handle);
+	}
+}
+
+bool win32_is_window_alive()
+{
+	return win_active;
 }
 
 #endif

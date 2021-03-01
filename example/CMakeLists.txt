@@ -1,6 +1,6 @@
 project (example)
 
-add_executable (example "src/main.c")
+add_executable (example "src/main.c" "src/app.c")
 target_include_directories (example PUBLIC "../include/")
 target_link_libraries (example cwrenity)
 

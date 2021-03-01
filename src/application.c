@@ -19,30 +19,45 @@
 */
 
 #include <cwrenity.h>
+#include <stddef.h>
 
-static bool app_context_alive = false;
+#include "win32_surface.h"
+
+static void (*app_callbacks[4])() = {NULL, NULL, NULL, NULL};
+
+void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (*terminate)())
+{
+	app_callbacks[0] = init;
+	app_callbacks[1] = update;
+	app_callbacks[2] = render;
+	app_callbacks[3] = terminate;
+}
 
 static void terminate_application()
 {
-	//TODO: terminate app;
+	app_callbacks[3]();
 }
 
 static void core_application_cycle()
 {
-	while (app_context_alive)
+	app_callbacks[0]();
+
+	while (win32_is_window_alive())
 	{
-		continue;
+		app_callbacks[2]();
+		app_callbacks[1]();
+		win32_update_window();
 	}
 }
 
 void cw_construct_app(app_info_t info)
 {
-	app_context_alive = true;
+	win32_create_window(info.title, info.width, info.height);
 	core_application_cycle();
 	terminate_application();
 }
 
 void cw_destroy_app()
 {
-	app_context_alive = false;
+	win32_destroy_window();
 }

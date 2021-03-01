@@ -18,10 +18,12 @@
 * or any of its contents.
 */
 
-#ifndef WIN32_SURFACE_H
-#define WIN32_SURFACE_H
+#ifndef _WIN32_SURFACE_H_
+#define _WIN32_SURFACE_H_
 
 CWREN_INT void win32_create_window();
 CWREN_INT void win32_update_window();
+CWREN_INT void win32_destroy_window();
+CWREN_INT bool win32_is_window_alive();
 
 #endif
