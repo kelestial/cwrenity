@@ -22,6 +22,7 @@
 
 #include <cwrenity.h>
 #include <windows.h>
+#include <string.h>
 #include <GL/GL.h>
 
 #include "win32_surface.h"
@@ -36,36 +37,6 @@ LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 		//EVENT: window creation
 		case WM_CREATE:
 		{
-			PIXELFORMATDESCRIPTOR pfd =
-		{
-			sizeof(PIXELFORMATDESCRIPTOR),
-			1,
-			PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    //Flags
-			PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
-			32,                   // Colordepth of the framebuffer.
-			0, 0, 0, 0, 0, 0,
-			0,
-			0,
-			0,
-			0, 0, 0, 0,
-			24,                   // Number of bits for the depthbuffer
-			8,                    // Number of bits for the stencilbuffer
-			0,                    // Number of Aux buffers in the framebuffer.
-			PFD_MAIN_PLANE,
-			0,
-			0, 0, 0
-		};
-
-		HDC ourWindowHandleToDeviceContext = GetDC(w32_handle);
-
-		int  letWindowsChooseThisPixelFormat;
-		letWindowsChooseThisPixelFormat = ChoosePixelFormat(ourWindowHandleToDeviceContext, &pfd); 
-		SetPixelFormat(ourWindowHandleToDeviceContext,letWindowsChooseThisPixelFormat, &pfd);
-
-		HGLRC ourOpenGLRenderingContext = wglCreateContext(ourWindowHandleToDeviceContext);
-		wglMakeCurrent (ourWindowHandleToDeviceContext, ourOpenGLRenderingContext);
-
-		MessageBoxA(0,(char*)glGetString(GL_VERSION), "OPENGL VERSION",0);
 			win_active = true;
 			break;
 		}
@@ -89,11 +60,46 @@ LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 	return 0;
 }
 
+static void win32_opengl_context()
+{
+	PIXELFORMATDESCRIPTOR w32_pfd =
+	{
+		sizeof(PIXELFORMATDESCRIPTOR),
+		1,
+		PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
+		PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
+		32,                   // Colordepth of the framebuffer.
+		0, 0, 0, 0, 0, 0,
+		0,
+		0,
+		0,
+		0, 0, 0, 0,
+		24,                   // Number of bits for the depthbuffer
+		8,                    // Number of bits for the stencilbuffer
+		0,                    // Number of Aux buffers in the framebuffer.
+		PFD_MAIN_PLANE,
+		0,
+		0, 0, 0
+	};
+
+		HDC w32_device_context = GetDC(w32_handle);
+
+		int w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
+		SetPixelFormat(w32_device_context, w32_pf, &w32_pfd);
+
+		HGLRC w32_ogl_context = wglCreateContext(w32_device_context);
+		wglMakeCurrent(w32_device_context, w32_ogl_context);
+
+		char gl_str[30] = "OpenGL Version: ";
+		strcat(gl_str, glGetString(GL_VERSION));
+		cw_log_message(gl_str, NOTE);
+}
+
 void win32_create_window(const char *title, unsigned int width, unsigned int height)
 {
 	WNDCLASSEX w32_class = {0};
 	w32_class.cbSize = sizeof(WNDCLASSEX);
-	w32_class.style = CS_OWNDC|CS_HREDRAW|CS_VREDRAW;
+	w32_class.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
 	w32_class.lpfnWndProc = win32_callback;
 	w32_class.hInstance = GetModuleHandle(NULL);
 	w32_class.lpszClassName = "cwrenw32class";
@@ -119,6 +125,7 @@ void win32_create_window(const char *title, unsigned int width, unsigned int hei
 		cw_log_message("(win32) failed to create valid window handle!", FATAL);
 	}
 
+	win32_opengl_context();
 	ShowWindow(w32_handle, SW_SHOWNORMAL);
 }
 

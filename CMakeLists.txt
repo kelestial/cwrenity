@@ -23,5 +23,4 @@ elseif (UNIX)
 	target_compile_definitions (cwrenity PUBLIC CWREN_PLATFORM_UNIX CWREN_BUILD_SHARED)
 endif ()
 
-add_subdirectory ("vendor/glfw")
 add_subdirectory ("example")
