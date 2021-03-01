@@ -28,6 +28,7 @@
 #include "win32_surface.h"
 
 static HWND w32_handle = NULL;
+HDC w32_device_context = NULL;
 static bool win_active = false;
 
 LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -82,7 +83,7 @@ static void win32_opengl_context()
 		0, 0, 0
 	};
 
-		HDC w32_device_context = GetDC(w32_handle);
+		w32_device_context = GetDC(w32_handle);
 
 		int w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
 		SetPixelFormat(w32_device_context, w32_pf, &w32_pfd);
