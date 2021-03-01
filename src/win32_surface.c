@@ -28,7 +28,9 @@
 #include "win32_surface.h"
 
 static HWND w32_handle = NULL;
-HDC w32_device_context = NULL;
+static HDC w32_device_context = NULL;
+static HGLRC w32_ogl_context = NULL;
+static int w32_pf = 0;
 static bool win_active = false;
 
 LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -61,7 +63,7 @@ LRESULT CALLBACK win32_callback(HWND window, UINT msg, WPARAM wParam, LPARAM lPa
 	return 0;
 }
 
-static void win32_opengl_context()
+static void win32_create_gl_context()
 {
 	PIXELFORMATDESCRIPTOR w32_pfd =
 	{
@@ -85,10 +87,10 @@ static void win32_opengl_context()
 
 		w32_device_context = GetDC(w32_handle);
 
-		int w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
+		w32_pf = ChoosePixelFormat(w32_device_context, &w32_pfd); 
 		SetPixelFormat(w32_device_context, w32_pf, &w32_pfd);
 
-		HGLRC w32_ogl_context = wglCreateContext(w32_device_context);
+		w32_ogl_context = wglCreateContext(w32_device_context);
 		wglMakeCurrent(w32_device_context, w32_ogl_context);
 
 		char gl_str[30] = "OpenGL Version: ";
@@ -126,7 +128,7 @@ void win32_create_window(const char *title, unsigned int width, unsigned int hei
 		cw_log_message("(win32) failed to create valid window handle!", FATAL);
 	}
 
-	win32_opengl_context();
+	win32_create_gl_context();
 	ShowWindow(w32_handle, SW_SHOWNORMAL);
 }
 
