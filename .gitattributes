@@ -1,2 +1,2 @@
-#fix C headers being reported as C++
+#report all headers as C
 *.h linguist-language=C
