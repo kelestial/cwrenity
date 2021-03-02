@@ -23,7 +23,7 @@
 #include <string.h>
 #include <glad/glad.h>
 
-#include "win32_surface.h"
+#include "native_layer.h"
 
 //window and device contexts
 static HWND w32_handle = NULL;
@@ -93,7 +93,7 @@ void native_create_window(const char *title, unsigned int width, unsigned int he
 	}
 
 	w32_handle = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, w32_class.lpszClassName, 
-		title, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height,
+		title, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME ^ WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, width, height,
 		0, 0, w32_class.hInstance, 0);
 
 	if (!w32_handle)

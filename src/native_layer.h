@@ -18,6 +18,13 @@
 * or any of its contents.
 */
 
-#if defined (CWREN_PLATFORM_WIN)
-#	include "win32_surface.h"
-#endif
+CWREN_INT void native_create_window();
+CWREN_INT void native_show_window(bool win_show);
+CWREN_INT void native_update_window();
+CWREN_INT void native_destroy_window();
+CWREN_INT bool native_is_window_alive();
+
+CWREN_INT void native_create_gl_context();
+CWREN_INT void native_destroy_gl_context();
+
+CWREN_INT void native_console_colour(int colour);

@@ -7,7 +7,7 @@ set (CMAKE_C_STANDARD 11)
 project (cwrenity)
 
 if (WIN32)
-	set (NATIVE_SRC "src/win32_surface.c")
+	set (NATIVE_SRC "src/win32_layer.c")
 	set (LIB_DEFINES "CWREN_PLATFORM_WIN" "CWREN_BUILD_SHARED")
 	set (LIB_DEPS "opengl32" "glu32")
 
