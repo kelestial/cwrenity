@@ -56,7 +56,7 @@ void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (
 void cw_construct_app(app_info_t info)
 {
 	native_create_window(info.title, info.width, info.height);
-	native_create_gl_context();
+	native_create_gl_context(info.vsync);
 	native_show_window(true);
 	
 	core_application_cycle();

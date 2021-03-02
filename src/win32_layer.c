@@ -22,6 +22,7 @@
 #include <windows.h>
 #include <string.h>
 #include <glad/glad.h>
+#include <GL/glext.h>
 
 #include "native_layer.h"
 
@@ -150,7 +151,7 @@ bool native_is_window_alive()
 #############################################
 */
 
-void native_create_gl_context()
+void native_create_gl_context(bool vsync)
 {
 	PIXELFORMATDESCRIPTOR w32_pfd =
 	{
@@ -186,6 +187,8 @@ void native_create_gl_context()
 	char gl_str[30] = "OpenGL Version: ";
 	strcat(gl_str, glGetString(GL_VERSION));
 	cw_log_message(gl_str, NOTE);
+
+	((BOOL(WINAPI*)(int))wglGetProcAddress("wglSwapIntervalEXT"))(vsync);
 }
 
 void native_destroy_gl_context()
