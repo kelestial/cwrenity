@@ -18,13 +18,17 @@
 * or any of its contents.
 */
 
+//windowing controls
 CWREN_INT void native_create_window();
 CWREN_INT void native_show_window(bool win_show);
 CWREN_INT void native_update_window();
 CWREN_INT void native_destroy_window();
 CWREN_INT bool native_is_window_alive();
 
+//opengl context controls
 CWREN_INT void native_create_gl_context();
 CWREN_INT void native_destroy_gl_context();
 
+//console/debugging controls
 CWREN_INT void native_console_colour(int colour);
+CWREN_INT void native_debug_break();

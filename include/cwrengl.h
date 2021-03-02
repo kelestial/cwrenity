@@ -35,6 +35,6 @@
 
 #define CGL_COLOR_BUFFER_BIT 0x00004000
 
-CWRENGL_API void cgl_clear_buffer(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+CWRENGL_API void cgl_clear_buffer(float r, float g, float b, float a);
 
 #endif

@@ -247,3 +247,8 @@ void native_console_colour(int colour)
 		}
 	}
 }
+
+void native_debug_break()
+{
+	__debugbreak();
+}

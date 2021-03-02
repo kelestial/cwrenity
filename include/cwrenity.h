@@ -68,5 +68,6 @@ typedef enum logtype_t
 } logtype_t;
 
 CWREN_API void cw_log_message(const char *message, logtype_t type);
+CWREN_API void cw_break_point();
 
 #endif
