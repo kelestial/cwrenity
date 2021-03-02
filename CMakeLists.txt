@@ -25,7 +25,8 @@ endif ()
 
 set (LIB_SRC 
 	"src/application.c"
-	"src/debugger.c")
+	"src/debugger.c"
+	"src/cwrengl.c")
 
 set (VENDOR_SRC "vendor/glad/src/glad.c")
 

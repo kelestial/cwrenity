@@ -36,8 +36,9 @@ static void core_application_cycle()
 
 	while (native_is_window_alive())
 	{
-		app_callbacks[2]();
-		app_callbacks[1]();
+		app_callbacks[1](); //update
+		app_callbacks[2](); //render
+
 		native_update_window();
 	}
 

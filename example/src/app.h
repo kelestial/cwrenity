@@ -1,9 +1,27 @@
+#include <cwrenity.h>
+#include <cwrengl.h>
+
 #ifndef _APP_H_
 #define _APP_H_
 
-void init_game_app();
-void update_game_app();
-void draw_game_app();
-void terminate_game_app();
+void init_game_app()
+{
+	
+}
+
+void update_game_app()
+{
+	
+}
+
+void render_game_app()
+{
+	cgl_clear_buffer(0.4f, 0.2f, 0.6f, 1.0f);
+}
+
+void terminate_game_app()
+{
+	cw_log_message("Terminated App", NOTE);
+}
 
 #endif
