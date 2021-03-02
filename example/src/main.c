@@ -14,6 +14,8 @@ int main(int argc, char const *argv[])
 	cw_app_callbacks(init_game_app, update_game_app, draw_game_app, terminate_game_app);
 	cw_break_point();
 	cw_construct_app(info);
+	
+	//framework takes control of code execution from here
 
 	return 0;
 }
