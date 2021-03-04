@@ -6,7 +6,7 @@
 
 void init_game_app()
 {
-	
+	cgl_prepare_test();
 }
 
 void update_game_app()
@@ -17,6 +17,7 @@ void update_game_app()
 void render_game_app()
 {
 	cgl_clear_buffer(0.4f, 0.2f, 0.6f, 1.0f);
+	cgl_update_test();
 }
 
 void terminate_game_app()

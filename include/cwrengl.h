@@ -35,4 +35,7 @@
 
 CWRENGL_API void cgl_clear_buffer(float r, float g, float b, float a);
 
+CWRENGL_API void cgl_prepare_test();
+CWRENGL_API void cgl_update_test();
+
 #endif
