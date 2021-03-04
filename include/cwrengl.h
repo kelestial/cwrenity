@@ -82,7 +82,7 @@ typedef unsigned int shader_t;
 
 CWRENGL_API shader_t cgl_create_shader(const char *vert, const char *frag);
 CWRENGL_API void cgl_enable_shader(shader_t shader);
-CWRENGL_API void cgl_dispose_shader(shader_t shader)
+CWRENGL_API void cgl_dispose_shader(shader_t shader);
 
 /*
 #############################################
@@ -92,6 +92,6 @@ CWRENGL_API void cgl_dispose_shader(shader_t shader)
 
 CWRENGL_API void cgl_prepare_test();
 CWRENGL_API void cgl_render_test();
-CWRENGL_API void cgl_cleanup_test()
+CWRENGL_API void cgl_cleanup_test();
 
 #endif
