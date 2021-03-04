@@ -45,11 +45,6 @@ static void core_application_cycle()
 	terminate_application();
 }
 
-void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (*terminate)())
-{
-
-}
-
 void cw_construct_app(app_info_t info)
 {
 	app_callbacks[0] = info.init_cb;
