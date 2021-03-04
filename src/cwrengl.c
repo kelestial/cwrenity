@@ -41,7 +41,7 @@ static const char *F_SRC = "#version 330 core\n"
 		"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 	"}\0";
 
-static float vertices[6] = 
+static float VERTICES[6] = 
 {
 	-0.5f, -0.5f,
 	 0.5f, -0.5f,
@@ -105,7 +105,7 @@ void cgl_buffer_data(vert_buffer_t *vb, unsigned int size, void *data, unsigned 
 void cgl_buffer_attrib(vert_buffer_t *vb, unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer)
 {
 	glEnableVertexAttribArray(index);
-	glVertexAttribPointer(index, size, type, GL_FALSE, stride, (void*)pointer);
+	glVertexAttribPointer(index, size, type, CGL_FALSE, stride, (void*)pointer);
 }
 
 void cgl_dispose_buffer(vert_buffer_t *vb)
@@ -118,11 +118,11 @@ shader_t cgl_create_shader(const char *vert, const char *frag)
 {
 	shader_t program = glCreateProgram();
 
-	shader_t vs = glCreateShader(GL_VERTEX_SHADER);
+	shader_t vs = glCreateShader(CGL_VERTEX_SHADER);
 	glShaderSource(vs, 1, &vert, NULL);
 	glCompileShader(vs);
 
-	shader_t fs = glCreateShader(GL_FRAGMENT_SHADER);
+	shader_t fs = glCreateShader(CGL_FRAGMENT_SHADER);
 	glShaderSource(fs, 1, &frag, NULL);
 	glCompileShader(fs);
 
@@ -149,13 +149,13 @@ void cgl_dispose_shader(shader_t shader)
 void cgl_prepare_test()
 {
 	VAO = cgl_gen_vertex_array();
-	VBO = cgl_gen_buffer(GL_ARRAY_BUFFER);
+	VBO = cgl_gen_buffer(CGL_ARRAY_BUFFER);
 
 	cgl_bind_vertex_array(VAO);
 
 	cgl_bind_buffer(VBO);
-	cgl_buffer_data(VBO, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	cgl_buffer_attrib(VBO, 0, 2, GL_FLOAT, 2 * sizeof(float), 0);
+	cgl_buffer_data(VBO, sizeof(VERTICES), VERTICES, CGL_STATIC_DRAW);
+	cgl_buffer_attrib(VBO, 0, 2, CGL_FLOAT, 2 * sizeof(float), 0);
 
 	cgl_unbind_vertex_array();
 
@@ -166,7 +166,7 @@ void cgl_render_test()
 {
 	cgl_bind_vertex_array(VAO);
 	cgl_enable_shader(SHADER);
-	cgl_draw_arrays(GL_TRIANGLES, 0, 3);
+	cgl_draw_arrays(CGL_TRIANGLES, 0, 3);
 }
 
 void cgl_cleanup_test()
