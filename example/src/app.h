@@ -16,7 +16,7 @@ void update_game_app()
 
 void render_game_app()
 {
-	cgl_clear_buffer(0.4f, 0.2f, 0.6f, 1.0f);
+	cgl_clear_colour(0.4f, 0.2f, 0.6f, 1.0f);
 	cgl_update_test();
 }
 

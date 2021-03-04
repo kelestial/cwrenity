@@ -19,76 +19,158 @@
 */
 
 #include <cwrengl.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <glad/glad.h>
 
-static unsigned int shaderProgram;
-static unsigned int vertexShader;
-static unsigned int fragmentShader;
+static vert_array_t VAO;
+static vert_buffer_t *VBO;
+static shader_t SHADER;
 
-static unsigned int VAO;
-static unsigned int VBO;
-
-static const char *fragmentShaderSource = "#version 330 core\n"
-	"out vec4 FragColor;\n"
-	"void main()\n"
-	"{\n"
-    	"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-	"}\0";
-
-static const char *vertexShaderSource = "#version 330 core\n"
+static const char *V_SRC = "#version 330 core\n"
 	"layout (location = 0) in vec3 aPos;\n"
 	"void main()\n"
 	"{\n"
 	"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 	"}\0";
 
-static static float vertices[] = 
+static const char *F_SRC = "#version 330 core\n"
+	"out vec4 FragColor;\n"
+	"void main()\n"
+	"{\n"
+		"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+	"}\0";
+
+static float vertices[6] = 
 {
 	-0.5f, -0.5f,
 	 0.5f, -0.5f,
 	 0.0f,  0.5f
 }; 
 
-void cgl_clear_buffer(float r, float g, float b, float a)
+void cgl_clear_colour(float r, float g, float b, float a)
 {
 	glClear(CGL_COLOR_BUFFER_BIT);
 	glClearColor(r, g, b, a);
 }
 
+void cgl_draw_arrays(unsigned int mode, int first, int count)
+{
+	glDrawArrays(mode, first, count);
+}
+
+vert_array_t cgl_gen_vertex_array()
+{
+	vert_array_t va;
+	glGenVertexArrays(1, &va);
+	return va;
+}
+
+void cgl_bind_vertex_array(vert_array_t va)
+{
+	glBindVertexArray(va);
+}
+
+void cgl_unbind_vertex_array()
+{
+	glBindVertexArray(0);
+}
+
+vert_buffer_t *cgl_gen_buffer(unsigned int type)
+{
+	vert_buffer_t *vb;
+
+	vb = malloc(sizeof(struct vert_buffer_t));
+	glGenBuffers(1, &vb->id);
+
+	vb->type = type;
+	return vb;
+}
+
+void cgl_bind_buffer(vert_buffer_t *vb)
+{
+	glBindBuffer(vb->type, vb->id);
+}
+
+void cgl_unbind_buffer(vert_buffer_t *vb)
+{
+	glBindBuffer(vb->type, 0);
+}
+
+void cgl_buffer_data(vert_buffer_t *vb, unsigned int size, void *data, unsigned int draw_type)
+{
+	glBufferData(vb->type, size, data, draw_type);
+}
+
+void cgl_buffer_attrib(vert_buffer_t *vb, unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer)
+{
+	glEnableVertexAttribArray(index);
+	glVertexAttribPointer(index, size, type, GL_FALSE, stride, (void*)pointer);
+}
+
+void cgl_dispose_buffer(vert_buffer_t *vb)
+{
+	glDeleteBuffers(1, &vb->id);
+	free(vb);
+}
+
+shader_t cgl_create_shader(const char *vert, const char *frag)
+{
+	shader_t program = glCreateProgram();
+
+	shader_t vs = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vs, 1, &vert, NULL);
+	glCompileShader(vs);
+
+	shader_t fs = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fs, 1, &frag, NULL);
+	glCompileShader(fs);
+
+	glAttachShader(program, vs);
+	glAttachShader(program, fs);
+	glLinkProgram(program);
+
+	glDeleteShader(vs);
+	glDeleteShader(fs);
+
+	return program;
+}
+
+void cgl_enable_shader(shader_t shader)
+{
+	glUseProgram(shader);
+}
+
+void cgl_dispose_shader(shader_t shader)
+{
+	glDeleteProgram(shader);
+}
+
 void cgl_prepare_test()
 {
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
+	VAO = cgl_gen_vertex_array();
+	VBO = cgl_gen_buffer(GL_ARRAY_BUFFER);
 
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	cgl_bind_vertex_array(VAO);
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);  
+	cgl_bind_buffer(VBO);
+	cgl_buffer_data(VBO, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	cgl_buffer_attrib(VBO, 0, 2, GL_FLOAT, 2 * sizeof(float), 0);
 
-	glBindVertexArray(0);
+	cgl_unbind_vertex_array();
 
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	SHADER = cgl_create_shader(V_SRC, F_SRC);
 }
 
 void cgl_update_test()
 {
-	glBindVertexArray(VAO);
-	glUseProgram(shaderProgram);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	cgl_bind_vertex_array(VAO);
+	cgl_enable_shader(SHADER);
+	cgl_draw_arrays(GL_TRIANGLES, 0, 3);
+}
+
+void cgl_cleanup_test()
+{
+	cgl_dispose_buffer(VBO);
+	cgl_dispose_shader(SHADER);
 }

@@ -33,9 +33,65 @@
 
 #define CGL_COLOR_BUFFER_BIT 0x00004000
 
-CWRENGL_API void cgl_clear_buffer(float r, float g, float b, float a);
+/*
+#############################################
+#         	  BASE GL FUNCTIONS             #
+#############################################
+*/
+
+CWRENGL_API void cgl_clear_colour(float r, float g, float b, float a);
+CWRENGL_API void cgl_draw_arrays(unsigned int mode, int first, int count);
+
+/*
+#############################################
+#               VERTEX ARRAYS               #
+#############################################
+*/
+
+typedef unsigned int vert_array_t;
+
+CWRENGL_API vert_array_t cgl_gen_vertex_array();
+CWRENGL_API void cgl_bind_vertex_array(vert_array_t va);
+CWRENGL_API void cgl_unbind_vertex_array();
+
+/*
+#############################################
+#              VERTEX BUFFERS               #
+#############################################
+*/
+
+typedef struct vert_buffer_t
+{
+	unsigned int id, type;
+} vert_buffer_t;
+
+CWRENGL_API vert_buffer_t *cgl_gen_buffer(unsigned int type);
+CWRENGL_API void cgl_bind_buffer(vert_buffer_t *vb);
+CWRENGL_API void cgl_unbind_buffer(vert_buffer_t *vb);
+CWRENGL_API void cgl_buffer_data(vert_buffer_t *vb, unsigned int size, void *data, unsigned int draw_type);
+CWRENGL_API void cgl_buffer_attrib(vert_buffer_t *vb, unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer);
+CWRENGL_API void cgl_dispose_buffer(vert_buffer_t *vb);
+
+/*
+#############################################
+#                  SHADERS                  #
+#############################################
+*/
+
+typedef unsigned int shader_t;
+
+CWRENGL_API shader_t cgl_create_shader(const char *vert, const char *frag);
+CWRENGL_API void cgl_enable_shader(shader_t shader);
+CWRENGL_API void cgl_dispose_shader(shader_t shader)
+
+/*
+#############################################
+#                API TESTING                #
+#############################################
+*/
 
 CWRENGL_API void cgl_prepare_test();
 CWRENGL_API void cgl_update_test();
+CWRENGL_API void cgl_cleanup_test()
 
 #endif
