@@ -47,12 +47,15 @@ typedef enum {false, true} bool;
 
 typedef struct app_info_t
 {
+	void (*init_cb)();
+	void (*update_cb)();
+	void (*render_cb)();
+	void (*terminate_cb)();
 	const char *title;
 	unsigned int width, height;
 	bool vsync;
 } app_info_t;
 
-CWREN_API void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (*terminate)());
 CWREN_API void cw_construct_app(app_info_t info);
 CWREN_API void cw_destroy_app();
 

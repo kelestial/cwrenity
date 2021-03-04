@@ -47,14 +47,16 @@ static void core_application_cycle()
 
 void cw_app_callbacks(void (*init)(), void (*update)(), void (*render)(), void (*terminate)())
 {
-	app_callbacks[0] = init;
-	app_callbacks[1] = update;
-	app_callbacks[2] = render;
-	app_callbacks[3] = terminate;
+
 }
 
 void cw_construct_app(app_info_t info)
 {
+	app_callbacks[0] = info.init_cb;
+	app_callbacks[1] = info.update_cb;
+	app_callbacks[2] = info.render_cb;
+	app_callbacks[3] = info.terminate_cb;
+
 	native_create_window(info.title, info.width, info.height);
 	native_create_gl_context(info.vsync);
 	native_show_window(true);
