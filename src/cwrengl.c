@@ -162,7 +162,7 @@ void cgl_prepare_test()
 	SHADER = cgl_create_shader(V_SRC, F_SRC);
 }
 
-void cgl_update_test()
+void cgl_render_test()
 {
 	cgl_bind_vertex_array(VAO);
 	cgl_enable_shader(SHADER);

@@ -91,7 +91,7 @@ CWRENGL_API void cgl_dispose_shader(shader_t shader)
 */
 
 CWRENGL_API void cgl_prepare_test();
-CWRENGL_API void cgl_update_test();
+CWRENGL_API void cgl_render_test();
 CWRENGL_API void cgl_cleanup_test()
 
 #endif
