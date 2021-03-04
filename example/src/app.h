@@ -11,7 +11,7 @@ void init_game_app()
 
 void update_game_app()
 {
-	
+	//TODO: update logic here!
 }
 
 void render_game_app()
