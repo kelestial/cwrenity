@@ -47,10 +47,7 @@ typedef enum {false, true} bool;
 
 typedef struct app_info_t
 {
-	void (*init_cb)();
-	void (*update_cb)();
-	void (*render_cb)();
-	void (*terminate_cb)();
+	void (*init_cb)(), (*update_cb)(), (*render_cb)(), (*terminate_cb)();
 	const char *title;
 	unsigned int width, height;
 	bool vsync;
