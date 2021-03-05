@@ -70,6 +70,7 @@
 
 CWRENGL_API void cgl_clear_colour(float r, float g, float b, float a);
 CWRENGL_API void cgl_draw_arrays(unsigned int mode, int first, int count);
+CWRENGL_API void cgl_draw_elements(unsigned int mode, int count, unsigned int type, void *indicies)
 
 /*
 #############################################
