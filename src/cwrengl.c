@@ -25,6 +25,7 @@
 
 static vert_array_t VAO;
 static vert_buffer_t *VBO;
+static vert_buffer_t *EBO;
 static shader_t SHADER;
 
 static const char *V_SRC = "#version 330 core\n"
@@ -41,11 +42,18 @@ static const char *F_SRC = "#version 330 core\n"
 		"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 	"}\0";
 
-static float VERTICES[6] = 
+static float VERTICES[8] = 
 {
-	-0.5f, -0.5f,
+	 0.5f,  0.5f,
 	 0.5f, -0.5f,
-	 0.0f,  0.5f
+	-0.5f, -0.5f,
+	-0.5f,  0.5f
+};
+
+static unsigned int INDICIES[6] = 
+{
+	0, 1, 3,
+	1, 2, 3
 }; 
 
 void cgl_clear_colour(float r, float g, float b, float a)
@@ -57,6 +65,11 @@ void cgl_clear_colour(float r, float g, float b, float a)
 void cgl_draw_arrays(unsigned int mode, int first, int count)
 {
 	glDrawArrays(mode, first, count);
+}
+
+void cgl_draw_elements(unsigned int mode, int count, unsigned int type, void *indicies)
+{
+	glDrawElements(mode, count, type, indicies);
 }
 
 vert_array_t cgl_gen_vertex_array()
@@ -150,8 +163,13 @@ void cgl_prepare_test()
 {
 	VAO = cgl_gen_vertex_array();
 	VBO = cgl_gen_buffer(CGL_ARRAY_BUFFER);
+	EBO = cgl_gen_buffer(CGL_ELEMENT_ARRAY_BUFFER);
 
 	cgl_bind_vertex_array(VAO);
+
+	cgl_bind_buffer(EBO);
+	//cgl_buffer_data(EBO, sizeof(INDICIES), INDICIES, CGL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(INDICIES), INDICIES, GL_STATIC_DRAW); 
 
 	cgl_bind_buffer(VBO);
 	cgl_buffer_data(VBO, sizeof(VERTICES), VERTICES, CGL_STATIC_DRAW);
@@ -166,7 +184,9 @@ void cgl_render_test()
 {
 	cgl_bind_vertex_array(VAO);
 	cgl_enable_shader(SHADER);
-	cgl_draw_arrays(CGL_TRIANGLES, 0, 3);
+	//cgl_draw_arrays(CGL_TRIANGLES, 0, 3);
+	//cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 void cgl_cleanup_test()
