@@ -168,8 +168,7 @@ void cgl_prepare_test()
 	cgl_bind_vertex_array(VAO);
 
 	cgl_bind_buffer(EBO);
-	//cgl_buffer_data(EBO, sizeof(INDICIES), INDICIES, CGL_STATIC_DRAW);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(INDICIES), INDICIES, GL_STATIC_DRAW); 
+	cgl_buffer_data(EBO, sizeof(INDICIES), INDICIES, CGL_STATIC_DRAW);
 
 	cgl_bind_buffer(VBO);
 	cgl_buffer_data(VBO, sizeof(VERTICES), VERTICES, CGL_STATIC_DRAW);
@@ -184,9 +183,7 @@ void cgl_render_test()
 {
 	cgl_bind_vertex_array(VAO);
 	cgl_enable_shader(SHADER);
-	//cgl_draw_arrays(CGL_TRIANGLES, 0, 3);
-	//cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
 }
 
 void cgl_cleanup_test()
