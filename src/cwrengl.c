@@ -18,10 +18,15 @@
 * or any of its contents.
 */
 
+#include <cwrenity.h>
 #include <cwrengl.h>
+
 #include <stdlib.h>
 #include <stdio.h>
+
 #include <glad/glad.h>
+
+#define GLCALL(x) gl_clear_errors(); x; gl_poll_errors();
 
 static vert_array_t VAO;
 static vert_buffer_t *VBO;
@@ -70,39 +75,41 @@ static void gl_poll_errors()
 		//TODO: use cwrenity logger
 		printf("ERROR: (cwrengl) gl error code: %i\n", error);
 	}
+
+	//TODO: translate error to string
 }
 
 void cgl_clear_colour(float r, float g, float b, float a)
 {
-	glClear(CGL_COLOR_BUFFER_BIT);
-	glClearColor(r, g, b, a);
+	GLCALL(glClear(CGL_COLOR_BUFFER_BIT));
+	GLCALL(glClearColor(r, g, b, a));
 }
 
 void cgl_draw_arrays(unsigned int mode, int first, int count)
 {
-	glDrawArrays(mode, first, count);
+	GLCALL(glDrawArrays(mode, first, count));
 }
 
 void cgl_draw_elements(unsigned int mode, int count, unsigned int type, void *indicies)
 {
-	glDrawElements(mode, count, type, indicies);
+	GLCALL(glDrawElements(mode, count, type, indicies));
 }
 
 vert_array_t cgl_gen_vertex_array()
 {
 	vert_array_t va;
-	glGenVertexArrays(1, &va);
+	GLCALL(glGenVertexArrays(1, &va));
 	return va;
 }
 
 void cgl_bind_vertex_array(vert_array_t va)
 {
-	glBindVertexArray(va);
+	GLCALL(glBindVertexArray(va));
 }
 
 void cgl_unbind_vertex_array()
 {
-	glBindVertexArray(0);
+	GLCALL(glBindVertexArray(0));
 }
 
 vert_buffer_t *cgl_gen_buffer(unsigned int type)
@@ -110,7 +117,7 @@ vert_buffer_t *cgl_gen_buffer(unsigned int type)
 	vert_buffer_t *vb;
 
 	vb = malloc(sizeof(struct vert_buffer_t));
-	glGenBuffers(1, &vb->id);
+	GLCALL(glGenBuffers(1, &vb->id));
 
 	vb->type = type;
 	return vb;
@@ -118,28 +125,28 @@ vert_buffer_t *cgl_gen_buffer(unsigned int type)
 
 void cgl_bind_buffer(vert_buffer_t *vb)
 {
-	glBindBuffer(vb->type, vb->id);
+	GLCALL(glBindBuffer(vb->type, vb->id));
 }
 
 void cgl_unbind_buffer(vert_buffer_t *vb)
 {
-	glBindBuffer(vb->type, 0);
+	GLCALL(glBindBuffer(vb->type, 0));
 }
 
 void cgl_buffer_data(vert_buffer_t *vb, unsigned int size, void *data, unsigned int draw_type)
 {
-	glBufferData(vb->type, size, data, draw_type);
+	GLCALL(glBufferData(vb->type, size, data, draw_type));
 }
 
 void cgl_buffer_attrib(vert_buffer_t *vb, unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer)
 {
-	glEnableVertexAttribArray(index);
-	glVertexAttribPointer(index, size, type, CGL_FALSE, stride, (void*)pointer);
+	GLCALL(glEnableVertexAttribArray(index));
+	GLCALL(glVertexAttribPointer(index, size, type, CGL_FALSE, stride, (void*)pointer));
 }
 
 void cgl_dispose_buffer(vert_buffer_t *vb)
 {
-	glDeleteBuffers(1, &vb->id);
+	GLCALL(glDeleteBuffers(1, &vb->id));
 	free(vb);
 }
 
@@ -148,31 +155,31 @@ shader_t cgl_create_shader(const char *vert, const char *frag)
 	shader_t program = glCreateProgram();
 
 	shader_t vs = glCreateShader(CGL_VERTEX_SHADER);
-	glShaderSource(vs, 1, &vert, NULL);
-	glCompileShader(vs);
+	GLCALL(glShaderSource(vs, 1, &vert, NULL));
+	GLCALL(glCompileShader(vs));
 
 	shader_t fs = glCreateShader(CGL_FRAGMENT_SHADER);
-	glShaderSource(fs, 1, &frag, NULL);
-	glCompileShader(fs);
+	GLCALL(glShaderSource(fs, 1, &frag, NULL));
+	GLCALL(glCompileShader(fs));
 
-	glAttachShader(program, vs);
-	glAttachShader(program, fs);
-	glLinkProgram(program);
+	GLCALL(glAttachShader(program, vs));
+	GLCALL(glAttachShader(program, fs));
+	GLCALL(glLinkProgram(program));
 
-	glDeleteShader(vs);
-	glDeleteShader(fs);
+	GLCALL(glDeleteShader(vs));
+	GLCALL(glDeleteShader(fs));
 
 	return program;
 }
 
 void cgl_enable_shader(shader_t shader)
 {
-	glUseProgram(shader);
+	GLCALL(glUseProgram(shader));
 }
 
 void cgl_dispose_shader(shader_t shader)
 {
-	glDeleteProgram(shader);
+	GLCALL(glDeleteProgram(shader));
 }
 
 void cgl_prepare_test()
@@ -200,9 +207,7 @@ void cgl_render_test()
 	cgl_bind_vertex_array(VAO);
 	cgl_enable_shader(SHADER);
 
-	gl_clear_errors();
 	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
-	gl_poll_errors();
 }
 
 void cgl_cleanup_test()
