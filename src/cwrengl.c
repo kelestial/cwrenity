@@ -56,6 +56,22 @@ static unsigned int INDICIES[6] =
 	1, 2, 3
 }; 
 
+static void gl_clear_errors()
+{
+	while (glGetError() != GL_NO_ERROR);
+}
+
+static void gl_poll_errors()
+{
+	unsigned int error;
+
+	while (error = glGetError())
+	{
+		//TODO: use cwrenity logger
+		printf("ERROR: (cwrengl) gl error code: %i\n", error);
+	}
+}
+
 void cgl_clear_colour(float r, float g, float b, float a)
 {
 	glClear(CGL_COLOR_BUFFER_BIT);
@@ -183,7 +199,10 @@ void cgl_render_test()
 {
 	cgl_bind_vertex_array(VAO);
 	cgl_enable_shader(SHADER);
+
+	gl_clear_errors();
 	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
+	gl_poll_errors();
 }
 
 void cgl_cleanup_test()

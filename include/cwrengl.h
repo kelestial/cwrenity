@@ -62,6 +62,8 @@
 #define CGL_FRAGMENT_SHADER 0x8B30
 #define CGL_VERTEX_SHADER 0x8B31
 
+#define CGL_NO_ERROR 0
+
 /*
 #############################################
 #         	  BASE GL FUNCTIONS             #
