@@ -73,10 +73,10 @@ static void gl_poll_errors()
 	while (error = glGetError())
 	{
 		//TODO: use cwrenity logger
+		//TODO: translate error to string
+
 		printf("ERROR: (cwrengl) gl error code: %i\n", error);
 	}
-
-	//TODO: translate error to string
 }
 
 void cgl_clear_colour(float r, float g, float b, float a)
