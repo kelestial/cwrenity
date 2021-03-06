@@ -7,8 +7,8 @@
 *  ╚═════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝   ╚═╝      ╚═╝
 * 
 * Cwrenity is a lightweight, data-oriented game framework!
-*
-*
+* 
+* 
 * Copyright (c) 2021 Victor Sarkisov
 *
 * This library/source is free (as in free beer and speech): you can
