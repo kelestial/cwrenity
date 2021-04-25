@@ -47,6 +47,12 @@ static void gl_poll_errors()
 	}
 }
 
+/*
+#############################################
+#             BASE GL FUNCTIONS             #
+#############################################
+*/
+
 void cgl_clear_colour(float r, float g, float b, float a)
 {
 	GLCALL(glClear(CGL_COLOR_BUFFER_BIT));
@@ -62,6 +68,12 @@ void cgl_draw_elements(unsigned int mode, int count, unsigned int type, void *in
 {
 	GLCALL(glDrawElements(mode, count, type, indicies));
 }
+
+/*
+#############################################
+#               VERTEX ARRAYS               #
+#############################################
+*/
 
 vert_array_t cgl_gen_vertex_array()
 {
@@ -79,6 +91,12 @@ void cgl_unbind_vertex_array()
 {
 	GLCALL(glBindVertexArray(0));
 }
+
+/*
+#############################################
+#              VERTEX BUFFERS               #
+#############################################
+*/
 
 vert_buffer_t *cgl_gen_buffer(unsigned int type)
 {
@@ -117,6 +135,12 @@ void cgl_dispose_buffer(vert_buffer_t *vb)
 	GLCALL(glDeleteBuffers(1, &vb->id));
 	free(vb);
 }
+
+/*
+#############################################
+#                  SHADERS                  #
+#############################################
+*/
 
 shader_t cgl_create_shader(const char *vert, const char *frag)
 {
