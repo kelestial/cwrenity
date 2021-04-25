@@ -22,9 +22,3 @@ Cwrenity takes advantage of opengl for cross-platform, hardware accelerated rend
 <kbd>
 <img src="branding/screenshot_1.png" alt="opengl image">
 </kbd>
-
-<p></p>
-<p float="left">
-  <img src="https://img.shields.io/github/license/kelestial/cwrenity?style=flat-square">
-  <img src="https://img.shields.io/github/repo-size/kelestial/cwrenity?color=pink&style=flat-square"> 
-</p>
