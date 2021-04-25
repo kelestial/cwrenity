@@ -17,5 +17,5 @@ Everything is contained! No external dependencies!
 
 # opengl rendering
 <p align="center">
-  <img src="branding/banner.png" alt="cwrenity logo" width="80%" height="80%">
+  <img src="branding/screenshot_1.png" alt="opengl image" width="80%" height="80%">
 </p>
