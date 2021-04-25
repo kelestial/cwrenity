@@ -19,7 +19,6 @@ Everything is contained! No external dependencies!
 Cwrenity takes advantage of opengl for cross-platform, hardware accelerated rendering
 
 <p></p>
-<p></p>
 
 <kbd>
 <img src="branding/screenshot_1.png" alt="opengl image">
