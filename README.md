@@ -1,4 +1,8 @@
-# cwrenity
+# cwrenity 
+<p float="left">
+  <img src="https://img.shields.io/github/license/kelestial/cwrenity?style=flat-square">
+  <img src="https://img.shields.io/github/repo-size/kelestial/cwrenity?color=pink&style=flat-square"> 
+</p>
 
 <p align="center">
   <img src="branding/banner.png" alt="cwrenity logo" width="80%" height="80%">
