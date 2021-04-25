@@ -19,11 +19,10 @@
 */
 
 #include <cwrenity.h>
-#include <stddef.h>
 
 #include "native_layer.h"
 
-static void (*app_callbacks[4])() = {NULL, NULL, NULL, NULL};
+static void (*app_callbacks[4])() = {0};
 
 static void terminate_application()
 {
