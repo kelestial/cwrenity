@@ -59,6 +59,15 @@ CWREN_API void cw_set_app_title(const char *title);
 
 /*
 #############################################
+#                 UTILITY                   #
+#############################################
+*/
+
+//TODO: implement function
+//CWREN_API const char *cw_load_file(const char *file);
+
+/*
+#############################################
 #               DEBUGGER                    #
 #############################################
 */
