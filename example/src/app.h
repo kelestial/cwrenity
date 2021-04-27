@@ -9,14 +9,14 @@ static vert_buffer_t *VBO;
 static vert_buffer_t *EBO;
 static shader_t SHADER;
 
-static const char *V_SRC = "#version 330 core\n"
+static const char *V_SRC = "#version 400 core\n"
 	"layout (location = 0) in vec3 aPos;\n"
 	"void main()\n"
 	"{\n"
 	"gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 	"}\0";
 
-static const char *F_SRC = "#version 330 core\n"
+static const char *F_SRC = "#version 400 core\n"
 	"out vec4 FragColor;\n"
 	"void main()\n"
 	"{\n"
