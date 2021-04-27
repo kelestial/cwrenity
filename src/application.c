@@ -63,3 +63,8 @@ void cw_destroy_app()
 	native_destroy_gl_context();
 	native_destroy_window();
 }
+
+void cw_set_app_title(const char *title)
+{
+	native_set_window_title(title);
+}

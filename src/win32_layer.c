@@ -117,6 +117,11 @@ void native_show_window(bool win_show)
 
 }
 
+void native_set_window_title(const char *title)
+{
+	SetWindowTextA(w32_handle, title);
+}
+
 void native_update_window()
 {
 	MSG msg;
