@@ -173,3 +173,9 @@ void cgl_dispose_shader(shader_t shader)
 {
 	GLCALL(glDeleteProgram(shader));
 }
+
+void cgl_shader_uniform_4f(shader_t shader, const char *uniform, float f1, float f2, float f3, float f4)
+{
+	int loc = glGetUniformLocation(shader, uniform);
+	GLCALL(glUniform4f(loc, f1, f2, f3, f4));
+}

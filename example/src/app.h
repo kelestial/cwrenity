@@ -17,10 +17,11 @@ static const char *V_SRC = "#version 400 core\n"
 	"}\0";
 
 static const char *F_SRC = "#version 400 core\n"
+	"uniform vec4 u_Colour;\n"
 	"out vec4 FragColor;\n"
 	"void main()\n"
 	"{\n"
-	"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+	"FragColor = u_Colour;\n"
 	"}\0";
 
 static float VERTICES[8] = 
@@ -65,8 +66,12 @@ void update_game_app()
 void render_game_app()
 {
 	cgl_clear_colour(0.4f, 0.2f, 0.6f, 1.0f);
+
 	cgl_bind_vertex_array(VAO);
+
 	cgl_enable_shader(SHADER);
+	cgl_shader_uniform_4f(SHADER, "u_Colour", 1, 0, 1, 1);
+
 	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
 }
 

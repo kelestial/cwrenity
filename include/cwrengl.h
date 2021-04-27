@@ -115,5 +115,6 @@ typedef unsigned int shader_t;
 CWRENGL_API shader_t cgl_create_shader(const char *vert, const char *frag);
 CWRENGL_API void cgl_enable_shader(shader_t shader);
 CWRENGL_API void cgl_dispose_shader(shader_t shader);
+CWRENGL_API void cgl_shader_uniform_4f(shader_t shader, const char *uniform, float f1, float f2, float f3, float f4);
 
 #endif
