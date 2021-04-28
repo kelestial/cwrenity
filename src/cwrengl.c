@@ -69,6 +69,11 @@ void cgl_draw_elements(unsigned int mode, int count, unsigned int type, void *in
 	GLCALL(glDrawElements(mode, count, type, indicies));
 }
 
+void cgl_set_viewport(int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 /*
 #############################################
 #               VERTEX ARRAYS               #
