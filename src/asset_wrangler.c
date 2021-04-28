@@ -7,8 +7,8 @@
 *  ╚═════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝   ╚═╝      ╚═╝
 * 
 * Cwrenity is a lightweight, data-oriented game framework!
-*
-*
+* 
+* 
 * Copyright (c) 2021 Victor Sarkisov
 *
 * This library/source is free (as in free beer and speech): you can
@@ -18,3 +18,13 @@
 * or any of its contents.
 */
 
+#include <cwrenity.h>
+#include <stdio.h>
+
+const char *cw_load_file(const char *filename)
+{
+    FILE *file_ptr = fopen(filename, "rb");
+
+    //TODO: read file and return contents
+    fclose(file_ptr);
+}

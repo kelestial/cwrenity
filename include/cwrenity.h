@@ -60,12 +60,11 @@ CWREN_API void cw_set_app_size(int width, int height);
 
 /*
 #############################################
-#                 UTILITY                   #
+#              ASSET WRANGLER               #
 #############################################
 */
 
-//TODO: implement function
-//CWREN_API const char *cw_load_file(const char *file);
+CWREN_API const char *cw_load_file(const char *filename);
 
 /*
 #############################################

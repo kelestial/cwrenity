@@ -16,6 +16,11 @@ elseif (UNIX)
 	set (LIB_DEFINES "CWREN_PLATFORM_UNIX" "CWREN_BUILD_SHARED")
 	set (LIB_DEPS "")
 
+elseif (APPLE)
+	set (NATIVE_SRC "")
+	set (LIB_DEFINES "CWREN_PLATFORM_UNIX" "CWREN_BUILD_SHARED")
+	set (LIB_DEPS "")
+
 else()
 	set (NATIVE_SRC "")
 	set (LIB_DEFINES "CWREN_BUILD_SHARED")
@@ -26,6 +31,7 @@ endif ()
 set (LIB_SRC 
 	"src/application.c"
 	"src/debugger.c"
+	"src/asset_wrangler.c"
 	"src/cwrengl.c")
 
 set (VENDOR_SRC "vendor/glad/src/glad.c")
