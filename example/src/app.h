@@ -77,7 +77,7 @@ void render_game_app()
 
 void terminate_game_app()
 {
-	cw_log_message("Terminated App", NOTE);
+	cw_log_message("Terminated App", WARNING);
 	cgl_dispose_buffer(VBO);
 	cgl_dispose_shader(SHADER);
 }
