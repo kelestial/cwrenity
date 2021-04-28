@@ -39,7 +39,7 @@ static bool buffer_active = false;
 
 /*
 #############################################
-#               WIN32 WINDOWING             #
+#              WIN32 WINDOWING              #
 #############################################
 */
 
@@ -120,6 +120,13 @@ void native_show_window(bool win_show)
 void native_set_window_title(const char *title)
 {
 	SetWindowTextA(w32_handle, title);
+}
+
+void native_set_window_size(int width, int height)
+{
+	RECT rect;
+	GetWindowRect(w32_handle, &rect);
+	SetWindowPos(w32_handle, HWND_TOP, rect.left, rect.top, width, height, 0);
 }
 
 void native_update_window()

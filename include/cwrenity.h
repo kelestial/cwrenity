@@ -56,6 +56,7 @@ typedef struct app_info_t
 CWREN_API void cw_construct_app(app_info_t info);
 CWREN_API void cw_destroy_app();
 CWREN_API void cw_set_app_title(const char *title);
+CWREN_API void cw_set_app_size(int width, int height);
 
 /*
 #############################################

@@ -22,6 +22,7 @@
 CWREN_INT void native_create_window(const char *title, unsigned int width, unsigned int height);
 CWREN_INT void native_show_window(bool win_show);
 CWREN_INT void native_set_window_title(const char *title);
+CWREN_INT void native_set_window_size(int width, int height);
 
 CWREN_INT void native_update_window();
 CWREN_INT void native_destroy_window();
