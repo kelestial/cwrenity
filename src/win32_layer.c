@@ -129,6 +129,21 @@ void native_set_window_size(int width, int height)
 	SetWindowPos(w32_handle, HWND_TOP, rect.left, rect.top, width, height, 0);
 }
 
+CWREN_INT void native_set_window_fullscreen()
+{
+	//TODO: set window fullscreen
+}
+
+CWREN_INT void native_set_window_borderless()
+{
+	//TODO: set window borderless
+}
+
+CWREN_INT void native_set_window_bordered()
+{
+	//TODO: set window bordered
+}
+
 void native_update_window()
 {
 	MSG msg;
