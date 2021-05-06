@@ -6,6 +6,7 @@
 # output directories
 /cmake-build-debug
 /cmake-build-release
+/build
 /out
 /bin
 
