@@ -17,7 +17,7 @@ Written in pure C11, Cwrenity is a lightweight, data-oriented game framework!
 * Opengl abstraction layer for advanced rendering
 * Platform agnostic codebase (Windows support for now)
 
-## Roadmap - 0.5x
+# Roadmap - 0.5x
 - [x] App, Windowing Creation
 - [x] Native API Layer
 - [ ] Opengl Abstraction Layer
