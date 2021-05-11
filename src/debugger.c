@@ -31,7 +31,7 @@ void cw_log_message(const char *message, logtype_t type)
 	printf("%s: %s\n", logstr_array[type], message);
 	native_console_colour(0);
 
-	if (type == FATAL)
+	if (type == LOG_FATAL)
 	{
 		//TODO: throw exeption!
 	}
