@@ -9,21 +9,6 @@ static vert_buffer_t *VBO;
 static vert_buffer_t *EBO;
 static shader_t SHADER;
 
-static const char *V_SRC = "#version 400 core\n"
-	"layout (location = 0) in vec3 aPos;\n"
-	"void main()\n"
-	"{\n"
-	"gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-	"}\0";
-
-static const char *F_SRC = "#version 400 core\n"
-	"uniform vec4 u_Colour;\n"
-	"out vec4 FragColor;\n"
-	"void main()\n"
-	"{\n"
-	"FragColor = u_Colour;\n"
-	"}\0";
-
 static float VERTICES[8] = 
 {
 	 0.5f,  0.5f,
@@ -55,7 +40,7 @@ void init_game_app()
 
 	cgl_unbind_vertex_array();
 
-	SHADER = cgl_create_shader(V_SRC, F_SRC);
+	SHADER = cgl_create_shader(cw_load_file("resources/shaders/purple.vert"), cw_load_file("resources/shaders/purple.frag"));
 }
 
 void update_game_app()
@@ -65,12 +50,12 @@ void update_game_app()
 
 void render_game_app()
 {
-	cgl_clear_colour(0.4f, 0.2f, 0.6f, 1.0f);
+	cgl_clear_colour(0.0f, 0.0f, 0.0f, 1.0f);
 
 	cgl_bind_vertex_array(VAO);
 
 	cgl_enable_shader(SHADER);
-	cgl_shader_uniform_4f(SHADER, "u_Colour", 1, 0, 1, 1);
+	//cgl_shader_uniform_4f(SHADER, "u_Colour", 1, 0, 1, 1);
 
 	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
 }
