@@ -164,7 +164,7 @@ void native_destroy_window()
 		DestroyWindow(w32_handle);
 	}
 
-	//TODO: destroy wgl context!
+	//TODO: destroy wgl context!?
 }
 
 bool native_is_window_alive()
