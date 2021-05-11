@@ -39,6 +39,6 @@ void cw_log_message(const char *message, logtype_t type)
 
 void cw_break_point()
 {
-	cw_log_message("-BreakPoint Tripped-", WARNING);
+	cw_log_message("-BreakPoint Tripped-", LOG_WARNING);
 	native_debug_break();
 }

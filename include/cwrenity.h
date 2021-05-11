@@ -75,7 +75,7 @@ CWREN_API void cw_free_pointer(void *pointer);
 
 typedef enum logtype_t
 {
-	NOTE, WARNING, ERR, FATAL
+	LOG_NOTE, LOG_WARNING, LOG_ERROR, LOG_FATAL
 } logtype_t;
 
 CWREN_API void cw_log_message(const char *message, logtype_t type);
