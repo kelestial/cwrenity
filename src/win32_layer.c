@@ -83,14 +83,14 @@ void native_create_window(const char *title, unsigned int width, unsigned int he
 
 	if (!width || !height)
 	{
-		cw_log_message("(win32) illegal size params. defaulting to (800x600)", ERR);
+		cw_log_message("(win32) illegal size params. defaulting to (800x600)", LOG_ERROR);
 		width = 800;
 		height = 600;
 	}
 
 	if (!RegisterClassEx(&w32_class))
 	{
-		cw_log_message("(win32) class registration failed!", FATAL);
+		cw_log_message("(win32) class registration failed!", LOG_FATAL);
 	}
 
 	w32_handle = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, w32_class.lpszClassName, 
@@ -99,7 +99,7 @@ void native_create_window(const char *title, unsigned int width, unsigned int he
 
 	if (!w32_handle)
 	{
-		cw_log_message("(win32) failed to create valid window handle!", FATAL);
+		cw_log_message("(win32) failed to create valid window handle!", LOG_FATAL);
 	}
 }
 
@@ -213,7 +213,7 @@ void native_create_gl_context(bool vsync)
 
 	char gl_str[30] = "OpenGL Version: ";
 	strcat(gl_str, glGetString(GL_VERSION));
-	cw_log_message(gl_str, NOTE);
+	cw_log_message(gl_str, LOG_NOTE);
 
 	((BOOL(WINAPI*)(int))wglGetProcAddress("wglSwapIntervalEXT"))(vsync);
 }
