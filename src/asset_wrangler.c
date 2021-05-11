@@ -19,12 +19,26 @@
 */
 
 #include <cwrenity.h>
+
+#include <stdlib.h>
 #include <stdio.h>
 
 const char *cw_load_file(const char *filename)
 {
+    //TODO: read file and return contents
+    //TODO: throw error if file open fails!
+
     FILE *file_ptr = fopen(filename, "rb");
 
-    //TODO: read file and return contents
+    fseek(file_ptr, 0, SEEK_END);
+    long f_size = ftell(file_ptr);
+    fseek(file_ptr, 0, SEEK_SET);
+
+    char *buffer = malloc(f_size + 1);
+
+    fread(buffer, 1, f_size, file_ptr);
     fclose(file_ptr);
+
+    //TODO: check if buffer is not null
+    return buffer;
 }
