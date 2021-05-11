@@ -53,10 +53,7 @@ void render_game_app()
 	cgl_clear_colour(0.0f, 0.0f, 0.0f, 1.0f);
 
 	cgl_bind_vertex_array(VAO);
-
 	cgl_enable_shader(SHADER);
-	//cgl_shader_uniform_4f(SHADER, "u_Colour", 1, 0, 1, 1);
-
 	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
 }
 
