@@ -65,6 +65,7 @@ CWREN_API void cw_set_app_size(int width, int height);
 */
 
 CWREN_API const char *cw_load_file(const char *filename);
+CWREN_API void cw_free_pointer(void *pointer);
 
 /*
 #############################################

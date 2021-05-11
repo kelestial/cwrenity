@@ -42,3 +42,8 @@ const char *cw_load_file(const char *filename)
     //TODO: check if buffer is not null
     return buffer;
 }
+
+void cw_free_pointer(void *pointer)
+{
+    free(pointer);
+}
