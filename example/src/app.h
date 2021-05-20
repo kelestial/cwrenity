@@ -55,7 +55,6 @@ void update_game_app()
 
 void render_game_app()
 {
-	cgl_set_viewport(800, 600);
 	cgl_clear_colour(0.4f, 0.4f, 0.6f, 1.0f);
 
 	txr_box = cgl_create_texture();
