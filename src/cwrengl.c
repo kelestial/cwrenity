@@ -219,17 +219,21 @@ cgl_texture_t *cgl_create_texture()
 	//TODO: remove after prototyping!!
 	stbi_set_flip_vertically_on_load(1);
 	int width, height, nrChannels;
-	unsigned char *data = stbi_load("resources/spr_bricks_1.png", &width, &height, &nrChannels, 4); 
+	unsigned char *data = stbi_load("resources/textures/spr_bricks_1.png", &width, &height, &nrChannels, 4); 
 
 	GLCALL(glGenTextures(1, &texture->id));
 	GLCALL(glBindTexture(CGL_TEXTURE_2D, texture->id));
-	GLCALL(glTexParameteri(CGL_TEXTURE_2D, CGL_TEXTURE_MIN_FILTER, CGL_LINEAR));
-	GLCALL(glTexParameteri(CGL_TEXTURE_2D, CGL_TEXTURE_MAG_FILTER, CGL_LINEAR));
+	GLCALL(glTexParameteri(CGL_TEXTURE_2D, CGL_TEXTURE_MIN_FILTER, CGL_NEAREST));
+	GLCALL(glTexParameteri(CGL_TEXTURE_2D, CGL_TEXTURE_MAG_FILTER, CGL_NEAREST));
 	GLCALL(glTexParameteri(CGL_TEXTURE_2D, CGL_TEXTURE_WRAP_S, CGL_CLAMP_TO_EDGE));
 	GLCALL(glTexParameteri(CGL_TEXTURE_2D, CGL_TEXTURE_WRAP_T, CGL_CLAMP_TO_EDGE));
 
 	GLCALL(glTexImage2D(CGL_TEXTURE_2D, 0, CGL_RGBA, width, height, 0, CGL_RGBA, CGL_UNSIGNED_BYTE, data));
 	GLCALL(glGenerateMipmap(CGL_TEXTURE_2D));
+
+	//TODO: remove after prototyping!!
+	GLCALL(glEnable(GL_BLEND));
+	GLCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 	stbi_image_free(data);
 
@@ -248,7 +252,7 @@ void cgl_bind_texture(cgl_texture_t *texture, unsigned int slot)
 {
 	if (slot > 31)
 	{
-		cw_log_message(" texture slot out of bounds! defaulting to 0x0.", LOG_ERROR);\
+		cw_log_message(" texture slot out of bounds! defaulting to 0x0.", LOG_ERROR);
 		slot = 0;
 	}
 
