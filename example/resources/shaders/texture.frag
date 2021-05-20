@@ -1,11 +1,13 @@
+//texture fragment shader
+
 #version 400 core
 
-out vec4 FragColor;
-in vec2 TexCoord;
+out vec4 frag_colour;
+in vec2 tex_coords;
 
-uniform sampler2D ourTexture;
+uniform sampler2D u_txr_id;
 
 void main()
 {
-    FragColor = texture(ourTexture, TexCoord);
+    frag_colour = texture(u_txr_id, tex_coords);
 }
