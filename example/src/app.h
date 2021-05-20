@@ -14,10 +14,10 @@ static cgl_texture_t *txr_box;
 
 static float data_vert[16] = 
 {
-	 0.5f,  0.5f,  0.0f, 0.0f,
-	 0.5f, -0.5f,  1.0f, 0.0f,
-	-0.5f, -0.5f,  1.0f, 1.0f,
-	-0.5f,  0.5f,  0.0f, 1.0f
+	 0.6f,  0.6f,  0.0f, 0.0f,
+	 0.6f, -0.6f,  1.0f, 0.0f,
+	-0.6f, -0.6f,  1.0f, 1.0f,
+	-0.6f,  0.6f,  0.0f, 1.0f
 };
 
 static unsigned int data_ind[6] = 
@@ -32,7 +32,7 @@ void init_game_app()
 	vb_pos = cgl_gen_buffer(CGL_ARRAY_BUFFER);
 	vb_ebo = cgl_gen_buffer(CGL_ELEMENT_ARRAY_BUFFER);
 
-	s_shader = cgl_create_shader(cw_load_file("resources/shaders/purple.vert"), cw_load_file("resources/shaders/purple.frag"));
+	s_shader = cgl_create_shader(cw_load_file("resources/shaders/texture.vert"), cw_load_file("resources/shaders/texture.frag"));
 
 	cgl_bind_vertex_array(va_array);
 
@@ -55,12 +55,14 @@ void update_game_app()
 
 void render_game_app()
 {
-	cgl_clear_colour(0.0f, 0.0f, 0.0f, 1.0f);
+	cgl_clear_colour(1.0f, 1.0f, 1.0f, 1.0f);
 
-	//txr_box = cgl_create_texture();
-	//cgl_bind_texture(txr_box, 0);
-	cgl_bind_vertex_array(va_array);
+	txr_box = cgl_create_texture();
+	cgl_bind_texture(txr_box, 0);
 	cgl_enable_shader(s_shader);
+	cgl_bind_vertex_array(va_array);
+
+	cgl_shader_uniform_1i(s_shader, "ourTexture", 0);
 	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
 }
 
