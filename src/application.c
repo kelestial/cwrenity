@@ -69,7 +69,7 @@ void cw_set_app_title(const char *title)
 	native_set_window_title(title);
 }
 
-CWREN_API void cw_set_app_size(int width, int height)
+void cw_set_app_size(int width, int height)
 {
 	native_set_window_size(width, height);
 }
