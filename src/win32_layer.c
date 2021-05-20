@@ -185,16 +185,16 @@ void native_create_gl_context(bool vsync)
 		sizeof(PIXELFORMATDESCRIPTOR),
 		1,
 		PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-		PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
-		24,                   // Colordepth of the framebuffer.
+		PFD_TYPE_RGBA,			// The kind of framebuffer. RGBA or palette.
+		24,						// Colordepth of the framebuffer.
 		0, 0, 0, 0, 0, 0,
 		0,
 		0,
 		0,
 		0, 0, 0, 0,
-		32,                   // Number of bits for the depthbuffer
-		0,                    // Number of bits for the stencilbuffer
-		0,                    // Number of Aux buffers in the framebuffer.
+		32,					// Number of bits for the depthbuffer
+		0,					// Number of bits for the stencilbuffer
+		0,					// Number of Aux buffers in the framebuffer.
 		PFD_MAIN_PLANE,
 		0,
 		0, 0, 0
