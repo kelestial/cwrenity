@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
 	{
 		init_game_app, update_game_app, render_game_app, terminate_game_app,	//callbacks
 		"cwrenity - calm coding!",												//title
-		1280, 720,																//window_size
+		800, 600,																//window_size
 		true																	//vsync
 	};
 
