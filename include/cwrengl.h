@@ -148,7 +148,7 @@ CWRENGL_API cgl_vert_buffer_t *cgl_gen_buffer(unsigned int type);
 CWRENGL_API void cgl_bind_buffer(cgl_vert_buffer_t *vb);
 CWRENGL_API void cgl_unbind_buffer(cgl_vert_buffer_t *vb);
 CWRENGL_API void cgl_buffer_data(cgl_vert_buffer_t *vb, unsigned int size, void *data, unsigned int draw_type);
-CWRENGL_API void cgl_buffer_attrib(cgl_vert_buffer_t *vb, unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer);
+CWRENGL_API void cgl_buffer_attrib(unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer);
 CWRENGL_API void cgl_dispose_buffer(cgl_vert_buffer_t *vb);
 
 /*
@@ -162,6 +162,7 @@ typedef unsigned int cgl_shader_t;
 CWRENGL_API cgl_shader_t cgl_create_shader(const char *vert, const char *frag);
 CWRENGL_API void cgl_enable_shader(cgl_shader_t shader);
 CWRENGL_API void cgl_dispose_shader(cgl_shader_t shader);
+CWRENGL_API void cgl_shader_uniform_1i(cgl_shader_t shader, const char *uniform, int i1);
 CWRENGL_API void cgl_shader_uniform_4f(cgl_shader_t shader, const char *uniform, float f1, float f2, float f3, float f4);
 
 /*

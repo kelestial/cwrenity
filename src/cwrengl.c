@@ -50,6 +50,20 @@ static void gl_poll_errors()
 	}
 }
 
+static int gl_get_uniform_location(unsigned int shader_id, const char *uniform)
+{
+	int loc = glGetUniformLocation(shader_id, uniform);
+
+	if (loc == -1)
+	{
+		//TODO: use cwrenity logger
+
+		printf("ERROR: failed to retrieve uniform '%s'\n", uniform);
+	}
+
+	return loc;
+}
+
 /*
 #############################################
 #             BASE GL FUNCTIONS             #
@@ -132,7 +146,7 @@ void cgl_buffer_data(cgl_vert_buffer_t *vb, unsigned int size, void *data, unsig
 	GLCALL(glBufferData(vb->type, size, data, draw_type));
 }
 
-void cgl_buffer_attrib(cgl_vert_buffer_t *vb, unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer)
+void cgl_buffer_attrib(unsigned int index, unsigned int size, unsigned int type, unsigned int stride, int pointer)
 {
 	GLCALL(glEnableVertexAttribArray(index));
 	GLCALL(glVertexAttribPointer(index, size, type, CGL_FALSE, stride, (void*)pointer));
@@ -182,17 +196,14 @@ void cgl_dispose_shader(cgl_shader_t shader)
 	GLCALL(glDeleteProgram(shader));
 }
 
+void cgl_shader_uniform_1i(cgl_shader_t shader, const char *uniform, int i1)
+{
+	GLCALL(glUniform1i(gl_get_uniform_location(shader, uniform), i1));
+}
+
 void cgl_shader_uniform_4f(cgl_shader_t shader, const char *uniform, float f1, float f2, float f3, float f4)
 {
-	int loc = glGetUniformLocation(shader, uniform);
-
-	if (loc == -1)
-	{
-		cw_log_message("invalid uniform location!", LOG_ERROR);
-		return;
-	}
-
-	GLCALL(glUniform4f(loc, f1, f2, f3, f4));
+	GLCALL(glUniform4f(gl_get_uniform_location(shader, uniform), f1, f2, f3, f4));
 }
 
 /*
@@ -218,6 +229,9 @@ cgl_texture_t *cgl_create_texture()
 	GLCALL(glTexParameteri(CGL_TEXTURE_2D, CGL_TEXTURE_WRAP_T, CGL_CLAMP_TO_EDGE));
 
 	GLCALL(glTexImage2D(CGL_TEXTURE_2D, 0, CGL_RGBA, width, height, 0, CGL_RGBA, CGL_UNSIGNED_BYTE, data));
+	GLCALL(glGenerateMipmap(CGL_TEXTURE_2D));
+
+	stbi_image_free(data);
 
 	return texture;
 }
