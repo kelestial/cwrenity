@@ -14,8 +14,8 @@ static cgl_texture_t *txr_box;
 
 static float data_vert[16] = 
 {
-	 0.4f,  0.6f,  1.0f, 1.0f, //0
-	 0.4f, -0.6f,  1.0f, 0.0f, //1
+	 0.6f,  0.6f,  1.0f, 1.0f, //0
+	 0.6f, -0.6f,  1.0f, 0.0f, //1
 	-0.6f, -0.6f,  0.0f, 0.0f, //2
 	-0.6f,  0.6f,  0.0f, 1.0f  //3
 };
@@ -55,6 +55,7 @@ void update_game_app()
 
 void render_game_app()
 {
+	cgl_set_viewport(800, 600);
 	cgl_clear_colour(0.4f, 0.4f, 0.6f, 1.0f);
 
 	txr_box = cgl_create_texture();
