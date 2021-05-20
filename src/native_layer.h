@@ -32,7 +32,7 @@ CWREN_INT void native_destroy_window();
 CWREN_INT bool native_is_window_alive();
 
 //opengl context controls
-CWREN_INT void native_create_gl_context();
+CWREN_INT void native_create_gl_context(bool vsync);
 CWREN_INT void native_destroy_gl_context();
 
 //console/debugging controls
