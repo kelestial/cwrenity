@@ -39,7 +39,7 @@ set (VENDOR_SRC "vendor/glad/src/glad.c")
 add_library (cwrenity SHARED ${LIB_SRC} ${NATIVE_SRC} ${VENDOR_SRC})
 target_compile_definitions (cwrenity PUBLIC ${LIB_DEFINES})
 
-target_include_directories (cwrenity PUBLIC "include" "vendor/glad/include" "vendor/stb" "vendor/glfw/include")
+target_include_directories (cwrenity PUBLIC "include" "vendor/glad/include" "vendor/stb")
 target_link_libraries (cwrenity PUBLIC opengl32 glu32)
 
 add_subdirectory ("example")
