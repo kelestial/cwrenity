@@ -2,8 +2,8 @@
 
 #version 400 core
 
-uniform vec4 u_Colour;
 out vec4 out_Colour;
+uniform vec4 u_Colour;
 
 void main()
 {
