@@ -27,4 +27,6 @@ Written in pure C11, Cwrenity is a lightweight, data-oriented game framework!
 
 # Screenshots
 <p></p>
+<img src="branding/screenshot_0.png" alt="opengl image">
+<p></p>
 <img src="branding/screenshot_1.png" alt="opengl image">
