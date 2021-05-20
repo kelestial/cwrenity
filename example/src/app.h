@@ -14,16 +14,16 @@ static cgl_texture_t *txr_box;
 
 static float data_vert[16] = 
 {
-	 0.6f,  0.6f,  0.0f, 0.0f,
-	 0.6f, -0.6f,  1.0f, 0.0f,
-	-0.6f, -0.6f,  1.0f, 1.0f,
-	-0.6f,  0.6f,  0.0f, 1.0f
+	 0.4f,  0.6f,  1.0f, 1.0f, //0
+	 0.4f, -0.6f,  1.0f, 0.0f, //1
+	-0.6f, -0.6f,  0.0f, 0.0f, //2
+	-0.6f,  0.6f,  0.0f, 1.0f  //3
 };
 
 static unsigned int data_ind[6] = 
 {
-	0, 1, 3,
-	1, 2, 3
+	0, 3, 2,
+	0, 1, 2
 };
 
 void init_game_app()
@@ -62,7 +62,7 @@ void render_game_app()
 	cgl_enable_shader(s_shader);
 	cgl_bind_vertex_array(va_array);
 
-	cgl_shader_uniform_1i(s_shader, "ourTexture", 0);
+	cgl_shader_uniform_1i(s_shader, "u_txr_id", 0);
 	cgl_draw_elements(CGL_TRIANGLES, 6, CGL_UNSIGNED_INT, 0);
 }
 
