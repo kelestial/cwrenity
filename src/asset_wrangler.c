@@ -23,6 +23,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 const char *cw_load_file(const char *filename)
 {
     //TODO: read file and return contents
