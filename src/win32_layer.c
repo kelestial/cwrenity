@@ -159,12 +159,15 @@ void native_update_window()
 
 void native_destroy_window()
 {
+	if (w32_device_context)
+	{
+		wglDeleteContext(w32_device_context);
+	}
+
 	if (w32_handle)
 	{
 		DestroyWindow(w32_handle);
 	}
-
-	//TODO: destroy wgl context!?
 }
 
 bool native_is_window_alive()
